@@ -32,6 +32,7 @@ from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 templates = Jinja2Templates(directory = "template")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 class user(BaseModel):
     name : str
     Age : int
