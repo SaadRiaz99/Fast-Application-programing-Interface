@@ -23,10 +23,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 # from pydantic import BaseModel
-from fastapi import jinja2
+# from fastapi import jinja2
 
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
+# from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+
+from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
@@ -45,3 +49,14 @@ def main():
 @app.get("/user/{user_id}")
 def readid(user_id : int , q : str |None = None):
     print(f"user Id {user_id and q is {q}}")
+
+@app.get("/home")
+async def home(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={
+            "title": "FastAPI Template",
+            "message": "Welcome to FastAPI!"
+        }
+    )
