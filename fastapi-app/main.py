@@ -21,11 +21,20 @@
 # print(a)
 
 from fastapi import FastAPI
-
+from pydantic import BaseModel
+# from pydantic import BaseModel
+from fastapi import jinja2
 
 app = FastAPI()
-
+class user(BaseModel):
+    name : str
+    Age : int
 @app.get("/")
 
 def main():
     return "I am Saad Bin Riaz and learn a fastapi "
+
+
+@app.get("/user/{user_id}")
+def readid(user_id : int , q : str |None = None):
+    print(f"user Id {user_id and q is {q}}")
