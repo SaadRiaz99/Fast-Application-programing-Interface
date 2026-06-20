@@ -3,54 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart - PrintPress</title>
+<title>Cart — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/cart.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <a href="/products">Continue Shopping</a>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+    </div>
 </nav>
 
-<section class="cart">
-    <h1>Your Cart</h1>
+<section class="cart-section">
+    <h1 class="anim-fade-up">Your Cart</h1>
 
-    <div class="cart-item">
+    <div class="cart-item anim-fade-left delay-1">
         <div class="item-details">
             <h3>Business Cards — 500 qty</h3>
             <p>350gsm Matte, Standard Size</p>
         </div>
         <div class="qty">
-            <button>-</button>
+            <button>−</button>
             <span>1</span>
             <button>+</button>
         </div>
         <p class="total">$25.00</p>
+        <button class="remove">✕</button>
     </div>
 
-    <div class="cart-item">
+    <div class="cart-item anim-fade-left delay-2">
         <div class="item-details">
             <h3>Flyers A5 — 1000 qty</h3>
             <p>150gsm Gloss, Full Color</p>
         </div>
         <div class="qty">
-            <button>-</button>
+            <button>−</button>
             <span>2</span>
             <button>+</button>
         </div>
         <p class="total">$80.00</p>
+        <button class="remove">✕</button>
     </div>
 
-    <div class="summary">
-        <p>Subtotal: <strong>$105.00</strong></p>
-        <a href="/checkout"><button>Proceed to Checkout</button></a>
+    <div class="summary anim-fade-up delay-3">
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <strong>$105.00</strong>
+        </div>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <strong>Free</strong>
+        </div>
+        <div class="summary-row total-row">
+            <span>Total</span>
+            <strong>$105.00</strong>
+        </div>
+        <a href="/checkout"><button class="btn-ripple">Proceed to Checkout →</button></a>
     </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
