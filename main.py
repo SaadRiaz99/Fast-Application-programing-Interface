@@ -12,9 +12,29 @@ templates = Jinja2Templates(directory="template")
 async def home(request: Request):
     return templates.TemplateResponse(request, "landing.html")
 
+@app.get("/services")
+async def services(request: Request):
+    return templates.TemplateResponse(request, "services.html")
+
+@app.get("/products")
+async def products(request: Request):
+    return templates.TemplateResponse(request, "products.html")
+
 @app.get("/product")
 async def product(request: Request):
     return templates.TemplateResponse(request, "product.html")
+
+@app.get("/quote")
+async def quote(request: Request):
+    return templates.TemplateResponse(request, "quote.html")
+
+@app.get("/about")
+async def about(request: Request):
+    return templates.TemplateResponse(request, "about.html")
+
+@app.get("/contact")
+async def contact(request: Request):
+    return templates.TemplateResponse(request, "contact.html")
 
 @app.get("/cart")
 async def cart(request: Request):
