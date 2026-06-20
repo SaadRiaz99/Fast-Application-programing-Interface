@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Products - PrintPress</title>
+<title>Products — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/products.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
@@ -20,64 +21,96 @@
 </nav>
 
 <section class="page-header">
-    <h1>Print Products</h1>
-    <p>Browse our range of print products and get a quote instantly.</p>
+    <div class="header-content anim-fade-up">
+        <h1>Print Products</h1>
+        <p>Browse our range and get a quote instantly.</p>
+    </div>
 </section>
 
 <section class="products-grid">
-    <div class="product-card">
+    <div class="product-card anim-scale delay-1">
+        <div class="product-image" style="background:linear-gradient(135deg,#fef2f2,#fecaca);">💳</div>
         <div class="product-info">
             <h2>Business Cards</h2>
-            <p class="desc">Premium 350gsm gloss/matte finish business cards with fast turnaround.</p>
+            <p class="desc">Premium 350gsm gloss/matte finish. Standard & custom sizes.</p>
             <p class="price">From $25.00</p>
-            <a href="/product">View Details</a>
+            <a href="/product" class="product-link">View Details →</a>
         </div>
     </div>
-    <div class="product-card">
+    <div class="product-card anim-scale delay-2">
+        <div class="product-image" style="background:linear-gradient(135deg,#fefce8,#fde68a);">📄</div>
         <div class="product-info">
             <h2>Flyers & Leaflets</h2>
-            <p class="desc">A5, A6, DL flyers — full color double-sided printing on 150gsm stock.</p>
+            <p class="desc">A5, A6, DL — full color double-sided on 150gsm stock.</p>
             <p class="price">From $40.00</p>
-            <a href="/product">View Details</a>
+            <a href="/product" class="product-link">View Details →</a>
         </div>
     </div>
-    <div class="product-card">
+    <div class="product-card anim-scale delay-3">
+        <div class="product-image" style="background:linear-gradient(135deg,#ecfdf5,#a7f3d0);">📘</div>
         <div class="product-info">
             <h2>Brochures</h2>
-            <p class="desc">Tri-fold, bi-fold, or saddle-stitched brochures for your business.</p>
+            <p class="desc">Tri-fold, bi-fold, or saddle-stitched. Bespoke layouts.</p>
             <p class="price">From $80.00</p>
-            <a href="/product">View Details</a>
+            <a href="/product" class="product-link">View Details →</a>
         </div>
     </div>
-    <div class="product-card">
+    <div class="product-card anim-scale delay-4">
+        <div class="product-image" style="background:linear-gradient(135deg,#eff6ff,#93c5fd);">🏴</div>
         <div class="product-info">
             <h2>Banners</h2>
-            <p class="desc">Vinyl banners, mesh banners, and retractable stands for events.</p>
+            <p class="desc">Vinyl, mesh, retractable stands — indoor & outdoor.</p>
             <p class="price">From $15/sq ft</p>
-            <a href="/product">View Details</a>
+            <a href="/product" class="product-link">View Details →</a>
         </div>
     </div>
-    <div class="product-card">
+    <div class="product-card anim-scale delay-5">
+        <div class="product-image" style="background:linear-gradient(135deg,#f5f3ff,#c4b5fd);">🏷️</div>
         <div class="product-info">
             <h2>Stickers & Labels</h2>
-            <p class="desc">Custom die-cut stickers, roll labels, and kiss-cut decals.</p>
+            <p class="desc">Die-cut, kiss-cut, roll labels — waterproof & durable.</p>
             <p class="price">From $10.00</p>
-            <a href="/product">View Details</a>
+            <a href="/product" class="product-link">View Details →</a>
         </div>
     </div>
-    <div class="product-card">
+    <div class="product-card anim-scale delay-6">
+        <div class="product-image" style="background:linear-gradient(135deg,#fdf2f8,#f9a8d4);">👕</div>
         <div class="product-info">
             <h2>Apparel</h2>
-            <p class="desc">Custom t-shirts, hoodies, and caps with screen printing or embroidery.</p>
+            <p class="desc">Custom t-shirts, hoodies, caps — screen print or embroidery.</p>
             <p class="price">From $15.00</p>
-            <a href="/product">View Details</a>
+            <a href="/product" class="product-link">View Details →</a>
         </div>
     </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
