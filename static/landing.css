@@ -1,0 +1,46 @@
+body{
+    margin:0;
+    font-family:Inter,sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    padding:25px 10%;
+}
+
+nav a{
+    color:white;
+    margin-right:20px;
+    text-decoration:none;
+}
+
+button{
+    background:#4f46e5;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+}
+
+.hero{
+    height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:4rem;
+    max-width:800px;
+}
+
+.hero p{
+    max-width:600px;
+    margin:20px 0;
+    color:#cbd5e1;
+}
