@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About - PrintPress</title>
+<title>About — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/about.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
@@ -20,35 +21,82 @@
 </nav>
 
 <section class="page-header">
-    <h1>About PrintPress</h1>
-    <p>Your trusted partner for premium printing since 2015.</p>
+    <div class="header-content anim-fade-up">
+        <h1>About PrintPress</h1>
+        <p>Your trusted partner for premium printing since 2015.</p>
+    </div>
 </section>
 
-<section class="about-content">
-    <div class="about-text">
+<section class="story anim-fade-up">
+    <div class="story-content">
         <h2>Our Story</h2>
         <p>PrintPress started as a small family-owned print shop and has grown into a full-service printing company serving hundreds of businesses across the country. We combine state-of-the-art digital and offset printing technology with old-fashioned customer service.</p>
-        <h2>Why Choose Us</h2>
-        <div class="features">
-            <div class="feature">
-                <h3>Fast Turnaround</h3>
-                <p>Most orders printed and shipped within 3-5 business days.</p>
-            </div>
-            <div class="feature">
-                <h3>Premium Quality</h3>
-                <p>We use top-grade materials and the latest printing equipment.</p>
-            </div>
-            <div class="feature">
-                <h3>Competitive Pricing</h3>
-                <p>Volume discounts and price matching on all print products.</p>
-            </div>
+        <p>Every job — whether it's 50 business cards or 10,000 catalogs — gets the same attention to detail and commitment to quality.</p>
+    </div>
+    <div class="story-stats">
+        <div class="stat-card">
+            <span class="stat-number">10+</span>
+            <span>Years in Business</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">500+</span>
+            <span>Happy Clients</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">50K+</span>
+            <span>Orders Fulfilled</span>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2 class="section-title anim-fade-up">Why Choose Us</h2>
+    <div class="features-grid">
+        <div class="feature-card anim-scale delay-1">
+            <div class="feature-icon">⚡</div>
+            <h3>Fast Turnaround</h3>
+            <p>Most orders printed and shipped within 3–5 business days. Rush orders available.</p>
+        </div>
+        <div class="feature-card anim-scale delay-2">
+            <div class="feature-icon">✨</div>
+            <h3>Premium Quality</h3>
+            <p>Top-grade materials and the latest Heidelberg and HP printing equipment.</p>
+        </div>
+        <div class="feature-card anim-scale delay-3">
+            <div class="feature-icon">💰</div>
+            <h3>Competitive Pricing</h3>
+            <p>Volume discounts, price matching, and no hidden fees on any order.</p>
         </div>
     </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
