@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services - PrintPress</title>
+<title>Services — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/services.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
@@ -20,36 +21,102 @@
 </nav>
 
 <section class="page-header">
-    <h1>Our Printing Services</h1>
-    <p>End-to-end printing solutions for businesses of all sizes.</p>
+    <div class="header-content anim-fade-up">
+        <h1>Our Printing Services</h1>
+        <p>End-to-end printing solutions for businesses of all sizes.</p>
+    </div>
 </section>
 
 <section class="services-list">
-    <div class="service-item">
-        <h2>Digital Printing</h2>
-        <p>Perfect for short runs and fast deadlines. Full-color digital printing with quick turnaround — ideal for flyers, brochures, and business cards.</p>
+    <div class="service-item anim-fade-up delay-1">
+        <div class="service-icon">🖨️</div>
+        <div class="service-info">
+            <h2>Digital Printing</h2>
+            <p>Perfect for short runs and fast deadlines. Full-color digital printing with quick turnaround — ideal for flyers, brochures, and business cards. No minimum quantity.</p>
+            <ul>
+                <li>Turnaround: 1–3 business days</li>
+                <li>Stock: Up to 400gsm</li>
+                <li>Finish: Gloss, Matte, Soft-touch</li>
+            </ul>
+        </div>
     </div>
-    <div class="service-item">
-        <h2>Offset Printing</h2>
-        <p>High-volume commercial printing with precise color matching. Best value for runs of 500+ units.</p>
+    <div class="service-item anim-fade-up delay-2">
+        <div class="service-icon">⚙️</div>
+        <div class="service-info">
+            <h2>Offset Printing</h2>
+            <p>High-volume commercial printing with precise Pantone color matching. Best value for runs of 500+ units. Ideal for magazines, catalogs, and corporate stationery.</p>
+            <ul>
+                <li>Turnaround: 5–7 business days</li>
+                <li>Stock: 80–350gsm</li>
+                <li>Finish: UV, Foil, Emboss</li>
+            </ul>
+        </div>
     </div>
-    <div class="service-item">
-        <h2>Large Format</h2>
-        <p>Banners, posters, vinyl decals, and trade show displays. UV-resistant inks for indoor and outdoor use.</p>
+    <div class="service-item anim-fade-up delay-3">
+        <div class="service-icon">🖼️</div>
+        <div class="service-info">
+            <h2>Large Format</h2>
+            <p>Banners, posters, vinyl decals, and trade show displays. UV-resistant inks for indoor and outdoor use. Sizes up to 16ft wide.</p>
+            <ul>
+                <li>Materials: Vinyl, Mesh, Fabric</li>
+                <li>Finish: Matte, Gloss, Laminate</li>
+                <li>Installation available</li>
+            </ul>
+        </div>
     </div>
-    <div class="service-item">
-        <h2>Merch & Apparel</h2>
-        <p>Screen-printed and embroidered custom apparel. T-shirts, hoodies, caps, and bags for your brand.</p>
+    <div class="service-item anim-fade-up delay-4">
+        <div class="service-icon">👕</div>
+        <div class="service-info">
+            <h2>Merch & Apparel</h2>
+            <p>Screen-printed and embroidered custom apparel. T-shirts, hoodies, caps, and bags for your brand, event, or business.</p>
+            <ul>
+                <li>Techniques: Screen, DTG, Embroidery</li>
+                <li>Garments: Gildan, Bella+Canvas, Nike</li>
+                <li>Bulk & small batch OK</li>
+            </ul>
+        </div>
     </div>
-    <div class="service-item">
-        <h2>Design Services</h2>
-        <p>Don't have a design? Our team can create professional layouts, logos, and marketing materials for you.</p>
+    <div class="service-item anim-fade-up delay-5">
+        <div class="service-icon">🎨</div>
+        <div class="service-info">
+            <h2>Design Services</h2>
+            <p>Don't have a design? Our team of professional graphic designers can create stunning layouts, logos, and marketing materials tailored to your brand.</p>
+            <ul>
+                <li>Logo & Brand Identity</li>
+                <li>Print-ready artwork</li>
+                <li>Revisions until you're happy</li>
+            </ul>
+        </div>
     </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>

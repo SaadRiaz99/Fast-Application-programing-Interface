@@ -3,45 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrintPress - Premium Printing Services</title>
+<title>PrintPress — Premium Printing Services</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/landing.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
         <a href="/quote">Get a Quote</a>
         <a href="/contact">Contact</a>
-        <a href="/login"><button>Sign In</button></a>
+        <a href="/login"><button class="btn-nav">Sign In</button></a>
     </div>
 </nav>
 
 <section class="hero">
-    <h1>High-Quality Printing, Delivered On Time</h1>
-    <p>From business cards to banners — we bring your designs to life with precision and speed.</p>
-    <a href="/quote"><button class="cta">Request a Quote</button></a>
+    <div class="hero-bg-shape anim-float"></div>
+    <div class="hero-content">
+        <h1 class="anim-fade-up">High-Quality Printing,<br>Delivered On Time</h1>
+        <p class="anim-fade-up delay-2">From business cards to banners — we bring your designs to life with precision and speed.</p>
+        <a href="/quote" class="anim-fade-up delay-3"><button class="cta btn-ripple">Request a Quote →</button></a>
+    </div>
+    <div class="hero-stats anim-fade-up delay-4">
+        <div class="stat"><span class="stat-num">10K+</span><span>Happy Clients</span></div>
+        <div class="stat"><span class="stat-num">5M+</span><span>Prints Delivered</span></div>
+        <div class="stat"><span class="stat-num">4.9★</span><span>Avg Rating</span></div>
+    </div>
 </section>
 
 <section class="services">
-    <h2>Our Services</h2>
+    <h2 class="section-title anim-fade-up">Our Services</h2>
+    <p class="section-sub anim-fade-up delay-1">Everything you need to bring your brand to paper.</p>
     <div class="service-grid">
-        <div class="service-card">
+        <div class="service-card anim-scale delay-1">
+            <div class="card-icon">🖨️</div>
             <h3>Digital Printing</h3>
             <p>Fast turnaround for small to medium runs with vibrant color accuracy.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card anim-scale delay-2">
+            <div class="card-icon">⚙️</div>
             <h3>Offset Printing</h3>
             <p>High-volume commercial printing at the best per-unit cost.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card anim-scale delay-3">
+            <div class="card-icon">🖼️</div>
             <h3>Large Format</h3>
             <p>Banners, posters, and signage for indoor and outdoor use.</p>
         </div>
-        <div class="service-card">
+        <div class="service-card anim-scale delay-4">
+            <div class="card-icon">👕</div>
             <h3>Merch & Apparel</h3>
             <p>Custom t-shirts, hoodies, and promotional merchandise.</p>
         </div>
@@ -49,34 +63,79 @@
 </section>
 
 <section class="products">
-    <h2>Popular Products</h2>
+    <h2 class="section-title anim-fade-up">Popular Products</h2>
+    <p class="section-sub anim-fade-up delay-1">Most ordered items by our customers.</p>
     <div class="product-grid">
-        <div class="product-card">
+        <div class="product-card anim-scale delay-1">
+            <div class="product-badge">Best Seller</div>
             <h3>Business Cards</h3>
-            <p>Starting at $25 for 500</p>
-            <a href="/product">Order Now</a>
+            <p>350gsm premium stock</p>
+            <span class="product-price">From $25</span>
+            <a href="/product" class="product-link">Order Now →</a>
         </div>
-        <div class="product-card">
+        <div class="product-card anim-scale delay-2">
+            <div class="product-badge">Popular</div>
             <h3>Flyers</h3>
-            <p>Starting at $40 for 1000</p>
-            <a href="/product">Order Now</a>
+            <p>A5 / A6 full color</p>
+            <span class="product-price">From $40</span>
+            <a href="/product" class="product-link">Order Now →</a>
         </div>
-        <div class="product-card">
+        <div class="product-card anim-scale delay-3">
             <h3>Banners</h3>
-            <p>Starting at $15 per sq ft</p>
-            <a href="/product">Order Now</a>
+            <p>Vinyl · Mesh · Standees</p>
+            <span class="product-price">From $15</span>
+            <a href="/product" class="product-link">Order Now →</a>
         </div>
-        <div class="product-card">
+        <div class="product-card anim-scale delay-4">
             <h3>Brochures</h3>
-            <p>Starting at $80 for 500</p>
-            <a href="/product">Order Now</a>
+            <p>Tri-fold · Saddle-stitch</p>
+            <span class="product-price">From $80</span>
+            <a href="/product" class="product-link">Order Now →</a>
+        </div>
+    </div>
+</section>
+
+<section class="testimonial">
+    <div class="testimonial-card anim-fade-up">
+        <p class="testimonial-text">"PrintPress delivered our order two days early and the quality exceeded our expectations. Highly recommended!"</p>
+        <div class="testimonial-author">
+            <div class="author-avatar">SK</div>
+            <div>
+                <strong>Sarah Khan</strong>
+                <span>Creative Director, Pixel Studio</span>
+            </div>
         </div>
     </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
