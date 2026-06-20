@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business Cards - PrintPress</title>
+<title>Business Cards — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/product.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/products">Products</a>
         <a href="/cart">Cart</a>
@@ -18,26 +19,60 @@
 </nav>
 
 <section class="product-detail">
-    <div class="product-image">
-        <div class="img-placeholder">Business Cards</div>
+    <div class="product-image anim-fade-left">
+        <div class="img-card">💳</div>
     </div>
-    <div class="info">
+    <div class="info anim-fade-right">
+        <span class="badge">Best Seller</span>
         <h1>Premium Business Cards</h1>
-        <p class="price">$25.00 — 500 cards</p>
-        <p class="desc">350gsm art board with gloss or matte lamination. Full color both sides. Choose from square, rounded corner, or standard sizes. 3-5 business day turnaround.</p>
+        <p class="price">$25.00 <span class="price-sub">/ 500 cards</span></p>
+        <p class="desc">350gsm art board with gloss or matte lamination. Full color both sides. Choose from square, rounded corner, or standard sizes. 3–5 business day turnaround.</p>
         <ul>
             <li>350gsm premium stock</li>
             <li>Gloss / Matte / Soft-touch finish</li>
             <li>Full color CMYK printing</li>
             <li>Free artwork check</li>
         </ul>
-        <button>Add to Cart</button>
+        <div class="qty-selector">
+            <label>Quantity:</label>
+            <select>
+                <option>250 cards — $18.00</option>
+                <option selected>500 cards — $25.00</option>
+                <option>1000 cards — $40.00</option>
+                <option>2500 cards — $85.00</option>
+            </select>
+        </div>
+        <button class="btn-ripple">Add to Cart →</button>
     </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
