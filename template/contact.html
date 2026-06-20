@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact - PrintPress</title>
+<title>Contact — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/contact.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
@@ -19,43 +20,81 @@
 </nav>
 
 <section class="page-header">
-    <h1>Contact Us</h1>
-    <p>We'd love to hear from you. Get in touch with our team.</p>
+    <div class="header-content anim-fade-up">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Get in touch with our team.</p>
+    </div>
 </section>
 
 <section class="contact-content">
-    <div class="contact-info">
-        <div class="info-item">
-            <h3>Address</h3>
-            <p>123 Commerce Street, Suite 100<br>New York, NY 10001</p>
+    <div class="contact-info anim-fade-left">
+        <div class="info-card">
+            <div class="info-icon">📍</div>
+            <div>
+                <h3>Address</h3>
+                <p>123 Commerce Street, Suite 100<br>New York, NY 10001</p>
+            </div>
         </div>
-        <div class="info-item">
-            <h3>Phone</h3>
-            <p>(555) 123-4567</p>
+        <div class="info-card">
+            <div class="info-icon">📞</div>
+            <div>
+                <h3>Phone</h3>
+                <p>(555) 123-4567</p>
+            </div>
         </div>
-        <div class="info-item">
-            <h3>Email</h3>
-            <p>hello@printpress.com</p>
+        <div class="info-card">
+            <div class="info-icon">✉️</div>
+            <div>
+                <h3>Email</h3>
+                <p>hello@printpress.com</p>
+            </div>
         </div>
-        <div class="info-item">
-            <h3>Business Hours</h3>
-            <p>Mon–Fri: 9:00 AM – 6:00 PM<br>Sat: 10:00 AM – 2:00 PM</p>
+        <div class="info-card">
+            <div class="info-icon">🕐</div>
+            <div>
+                <h3>Business Hours</h3>
+                <p>Mon–Fri: 9:00 AM – 6:00 PM<br>Sat: 10:00 AM – 2:00 PM</p>
+            </div>
         </div>
     </div>
 
-    <form class="contact-form">
+    <form class="contact-form anim-fade-right">
         <h2>Send a Message</h2>
         <input type="text" placeholder="Your Name">
         <input type="email" placeholder="Your Email">
         <input type="text" placeholder="Subject">
-        <textarea placeholder="Your Message"></textarea>
-        <button type="submit">Send Message</button>
+        <textarea placeholder="Tell us about your printing needs..."></textarea>
+        <button type="submit" class="btn-ripple">Send Message →</button>
     </form>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
