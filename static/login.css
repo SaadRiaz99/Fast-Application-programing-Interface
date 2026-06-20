@@ -16,14 +16,8 @@ body{
 }
 
 .left{
-    background:linear-gradient(
-        135deg,
-        #4f46e5,
-        #7c3aed
-    );
-
+    background:linear-gradient(135deg,#1e293b,#334155);
     color:white;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -58,6 +52,17 @@ button{
     padding:15px;
     border:none;
     border-radius:8px;
-    background:#4f46e5;
+    background:#dc2626;
     color:white;
+    cursor:pointer;
+}
+
+.signup-link{
+    text-align:center;
+    margin-top:15px;
+}
+
+.signup-link a{
+    color:#dc2626;
+    text-decoration:none;
 }
