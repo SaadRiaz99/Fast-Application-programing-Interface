@@ -8,18 +8,21 @@ body{
 nav{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     padding:20px 10%;
     background:white;
     box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
 
 nav a{
-    color:#2563eb;
+    color:#dc2626;
     text-decoration:none;
 }
 
 .cart{
     padding:40px 10%;
+    max-width:800px;
+    margin:0 auto;
 }
 
 .cart h1{
@@ -37,12 +40,14 @@ nav a{
     box-shadow:0 3px 10px rgba(0,0,0,.04);
 }
 
-.cart-item img{
-    border-radius:8px;
+.item-details h3{
+    margin:0;
 }
 
-.cart-item h3{
-    margin:0;
+.item-details p{
+    margin:5px 0 0;
+    color:#64748b;
+    font-size:0.9rem;
 }
 
 .qty{
@@ -74,11 +79,18 @@ nav a{
 }
 
 .summary button{
-    background:#2563eb;
+    background:#dc2626;
     color:white;
     border:none;
     padding:12px 30px;
     border-radius:8px;
     font-size:1rem;
     cursor:pointer;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+    font-size:0.9rem;
 }
