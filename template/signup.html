@@ -3,35 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign Up - PrintPress</title>
+<title>Sign Up — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/signup.css">
 </head>
 <body>
 
 <div class="container">
 
-    <div class="left">
-        <h1>Join PrintPress</h1>
-        <p>Create an account to place orders, request quotes, and track your print jobs.</p>
+    <div class="left anim-fade-left">
+        <div class="left-content">
+            <h2 class="logo">PrintPress</h2>
+            <h1>Join PrintPress</h1>
+            <p>Create an account to place orders, request quotes, and track your print jobs in real time.</p>
+            <ul class="benefits">
+                <li>✓ Fast checkout & reordering</li>
+                <li>✓ Order tracking & history</li>
+                <li>✓ Exclusive volume discounts</li>
+                <li>✓ Priority customer support</li>
+            </ul>
+        </div>
     </div>
 
-    <div class="right">
-
+    <div class="right anim-fade-right">
         <form>
-
             <h2>Create Account</h2>
-
+            <p class="form-sub">Start printing with ease.</p>
             <input type="text" placeholder="Full Name">
             <input type="email" placeholder="Email">
             <input type="password" placeholder="Password">
             <input type="password" placeholder="Confirm Password">
-
-            <button type="submit">Sign Up</button>
-
+            <button type="submit" class="btn-ripple">Create Account →</button>
             <p class="login-link">Already have an account? <a href="/login">Sign In</a></p>
-
         </form>
-
     </div>
 
 </div>

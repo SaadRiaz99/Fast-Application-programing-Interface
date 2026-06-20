@@ -3,48 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - PrintPress</title>
+    <title>Dashboard — PrintPress</title>
+    <link rel="stylesheet" href="/static/animations.css">
     <link rel="stylesheet" href="/static/dashboard.css">
 </head>
 <body>
 
 <div class="sidebar">
-    <h2>PrintPress</h2>
+    <h2 class="logo">PrintPress</h2>
     <ul>
-        <li>Dashboard</li>
+        <li class="active">Dashboard</li>
         <li>Orders</li>
         <li>Products</li>
         <li>Customers</li>
         <li>Quote Requests</li>
     </ul>
+    <div class="sidebar-footer">
+        <a href="/">← Visit Site</a>
+    </div>
 </div>
 
 <div class="main">
-
     <header>
         <h1>Admin Dashboard</h1>
-        <button>+ New Order</button>
+        <button class="btn-ripple">+ New Order</button>
     </header>
 
     <section class="cards">
-        <div class="card">
+        <div class="card anim-scale delay-1">
+            <div class="card-icon-small">📋</div>
             <h3>Pending Orders</h3>
-            <p>23</p>
+            <p class="card-num">23</p>
+            <span class="card-change up">↑ 12% this week</span>
         </div>
-        <div class="card">
+        <div class="card anim-scale delay-2">
+            <div class="card-icon-small">⚙️</div>
             <h3>In Production</h3>
-            <p>12</p>
+            <p class="card-num">12</p>
+            <span class="card-change">On track</span>
         </div>
-        <div class="card">
+        <div class="card anim-scale delay-3">
+            <div class="card-icon-small">💰</div>
             <h3>Monthly Revenue</h3>
-            <p>$18,420</p>
+            <p class="card-num">$18,420</p>
+            <span class="card-change up">↑ 8% vs last month</span>
         </div>
-        <div class="card">
+        <div class="card anim-scale delay-4">
+            <div class="card-icon-small">📩</div>
             <h3>Quote Requests</h3>
-            <p>8</p>
+            <p class="card-num">8</p>
+            <span class="card-change">3 unread</span>
         </div>
     </section>
-
 </div>
 
 </body>

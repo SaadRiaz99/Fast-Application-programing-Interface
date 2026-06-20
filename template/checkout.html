@@ -3,40 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout - PrintPress</title>
+<title>Checkout — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/checkout.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <a href="/cart">Back to Cart</a>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/cart">Back to Cart</a>
+    </div>
 </nav>
 
-<section class="checkout">
-    <h1>Checkout</h1>
+<section class="checkout-section">
+    <h1 class="anim-fade-up">Checkout</h1>
+    <p class="checkout-sub anim-fade-up delay-1">Complete your order details below.</p>
 
-    <form>
-        <h3>Contact Information</h3>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="text" placeholder="Phone">
+    <form class="checkout-form anim-fade-up delay-2">
+        <div class="form-group">
+            <h3>Contact Information</h3>
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email">
+            <input type="text" placeholder="Phone">
+        </div>
 
-        <h3>Delivery Address</h3>
-        <input type="text" placeholder="Street Address">
-        <input type="text" placeholder="City">
-        <input type="text" placeholder="Postal Code">
+        <div class="form-group">
+            <h3>Delivery Address</h3>
+            <input type="text" placeholder="Street Address">
+            <div class="form-row">
+                <input type="text" placeholder="City">
+                <input type="text" placeholder="Postal Code">
+            </div>
+        </div>
 
-        <h3>Order Notes</h3>
-        <textarea placeholder="Special instructions, proofing requests, or delivery notes..."></textarea>
+        <div class="form-group">
+            <h3>Order Notes</h3>
+            <textarea placeholder="Special instructions, proofing requests, or delivery notes..."></textarea>
+        </div>
 
-        <button type="submit">Place Order — $105.00</button>
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-row"><span>Business Cards (500)</span><span>$25.00</span></div>
+            <div class="summary-row"><span>Flyers A5 (1000 x 2)</span><span>$80.00</span></div>
+            <div class="summary-row total"><span>Total</span><span>$105.00</span></div>
+        </div>
+
+        <button type="submit" class="btn-ripple">Place Order — $105.00</button>
     </form>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
