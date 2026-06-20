@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,121 +9,234 @@
 </head>
 <body>
 
+<!-- ========== NAV ========== -->
+
 <nav id="navbar">
-    <h2 class="logo">PrintPress</h2>
+    <h2 class="logo"><span class="gradient-text">Print</span>Press</h2>
     <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
         <a href="/quote">Get a Quote</a>
         <a href="/contact">Contact</a>
-        <a href="/login"><button class="btn-nav">Sign In</button></a>
+        <a href="/login"><button class="btn-nav btn-ripple">Sign In</button></a>
     </div>
 </nav>
 
+<!-- ========== HERO ========== -->
+
 <section class="hero">
-    <div class="hero-bg-shape anim-float"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="particle-container" id="particles"></div>
+
     <div class="hero-content">
-        <h1 class="anim-fade-up">High-Quality Printing,<br>Delivered On Time</h1>
-        <p class="anim-fade-up delay-2">From business cards to banners — we bring your designs to life with precision and speed.</p>
-        <a href="/quote" class="anim-fade-up delay-3"><button class="cta btn-ripple">Request a Quote →</button></a>
+        <div class="hero-badge anim-fade-down">🔥 Trusted by 10,000+ businesses</div>
+        <h1 class="hero-title">
+            <span class="typewriter typewriter-cursor">High-Quality Printing</span><br>
+            <span class="gradient-text">Delivered On Time</span>
+        </h1>
+        <p class="hero-sub">From business cards to banners — we bring your designs to life with precision and speed.</p>
+        <div class="hero-actions">
+            <a href="/quote"><button class="cta cta-primary btn-ripple">Request a Quote →</button></a>
+            <a href="/products"><button class="cta cta-secondary">View Products</button></a>
+        </div>
     </div>
-    <div class="hero-stats anim-fade-up delay-4">
-        <div class="stat"><span class="stat-num">10K+</span><span>Happy Clients</span></div>
-        <div class="stat"><span class="stat-num">5M+</span><span>Prints Delivered</span></div>
-        <div class="stat"><span class="stat-num">4.9★</span><span>Avg Rating</span></div>
+
+    <div class="hero-stats">
+        <div class="stat-card-h">
+            <span class="stat-value" data-target="10">0</span><span class="stat-suffix">K+</span>
+            <span class="stat-label">Happy Clients</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card-h">
+            <span class="stat-value" data-target="5">0</span><span class="stat-suffix">M+</span>
+            <span class="stat-label">Prints Delivered</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card-h">
+            <span class="stat-value">4.9</span><span class="stat-suffix">★</span>
+            <span class="stat-label">Avg Rating</span>
+        </div>
     </div>
 </section>
 
-<section class="services">
-    <h2 class="section-title anim-fade-up">Our Services</h2>
-    <p class="section-sub anim-fade-up delay-1">Everything you need to bring your brand to paper.</p>
+<!-- ========== SERVICES ========== -->
+
+<section class="services" id="services">
+    <div class="section-label reveal">What We Do</div>
+    <h2 class="section-title reveal">Our Services</h2>
+    <p class="section-sub reveal">Everything you need to bring your brand to paper.</p>
+
     <div class="service-grid">
-        <div class="service-card anim-scale delay-1">
-            <div class="card-icon">🖨️</div>
-            <h3>Digital Printing</h3>
-            <p>Fast turnaround for small to medium runs with vibrant color accuracy.</p>
+        <div class="service-card tilt-card reveal" style="transition-delay:.1s">
+            <div class="tilt-card-inner">
+                <div class="tilt-glow"></div>
+                <div class="card-icon-wrap">🖨️</div>
+                <h3>Digital Printing</h3>
+                <p>Fast turnaround for small to medium runs with vibrant color accuracy.</p>
+                <a href="/services" class="card-link">Learn more →</a>
+            </div>
         </div>
-        <div class="service-card anim-scale delay-2">
-            <div class="card-icon">⚙️</div>
-            <h3>Offset Printing</h3>
-            <p>High-volume commercial printing at the best per-unit cost.</p>
+        <div class="service-card tilt-card reveal" style="transition-delay:.2s">
+            <div class="tilt-card-inner">
+                <div class="tilt-glow"></div>
+                <div class="card-icon-wrap">⚙️</div>
+                <h3>Offset Printing</h3>
+                <p>High-volume commercial printing at the best per-unit cost.</p>
+                <a href="/services" class="card-link">Learn more →</a>
+            </div>
         </div>
-        <div class="service-card anim-scale delay-3">
-            <div class="card-icon">🖼️</div>
-            <h3>Large Format</h3>
-            <p>Banners, posters, and signage for indoor and outdoor use.</p>
+        <div class="service-card tilt-card reveal" style="transition-delay:.3s">
+            <div class="tilt-card-inner">
+                <div class="tilt-glow"></div>
+                <div class="card-icon-wrap">🖼️</div>
+                <h3>Large Format</h3>
+                <p>Banners, posters, and signage for indoor and outdoor use.</p>
+                <a href="/services" class="card-link">Learn more →</a>
+            </div>
         </div>
-        <div class="service-card anim-scale delay-4">
-            <div class="card-icon">👕</div>
-            <h3>Merch & Apparel</h3>
-            <p>Custom t-shirts, hoodies, and promotional merchandise.</p>
-        </div>
-    </div>
-</section>
-
-<section class="products">
-    <h2 class="section-title anim-fade-up">Popular Products</h2>
-    <p class="section-sub anim-fade-up delay-1">Most ordered items by our customers.</p>
-    <div class="product-grid">
-        <div class="product-card anim-scale delay-1">
-            <div class="product-badge">Best Seller</div>
-            <h3>Business Cards</h3>
-            <p>350gsm premium stock</p>
-            <span class="product-price">From $25</span>
-            <a href="/product" class="product-link">Order Now →</a>
-        </div>
-        <div class="product-card anim-scale delay-2">
-            <div class="product-badge">Popular</div>
-            <h3>Flyers</h3>
-            <p>A5 / A6 full color</p>
-            <span class="product-price">From $40</span>
-            <a href="/product" class="product-link">Order Now →</a>
-        </div>
-        <div class="product-card anim-scale delay-3">
-            <h3>Banners</h3>
-            <p>Vinyl · Mesh · Standees</p>
-            <span class="product-price">From $15</span>
-            <a href="/product" class="product-link">Order Now →</a>
-        </div>
-        <div class="product-card anim-scale delay-4">
-            <h3>Brochures</h3>
-            <p>Tri-fold · Saddle-stitch</p>
-            <span class="product-price">From $80</span>
-            <a href="/product" class="product-link">Order Now →</a>
-        </div>
-    </div>
-</section>
-
-<section class="testimonial">
-    <div class="testimonial-card anim-fade-up">
-        <p class="testimonial-text">"PrintPress delivered our order two days early and the quality exceeded our expectations. Highly recommended!"</p>
-        <div class="testimonial-author">
-            <div class="author-avatar">SK</div>
-            <div>
-                <strong>Sarah Khan</strong>
-                <span>Creative Director, Pixel Studio</span>
+        <div class="service-card tilt-card reveal" style="transition-delay:.4s">
+            <div class="tilt-card-inner">
+                <div class="tilt-glow"></div>
+                <div class="card-icon-wrap">👕</div>
+                <h3>Merch & Apparel</h3>
+                <p>Custom t-shirts, hoodies, and promotional merchandise.</p>
+                <a href="/services" class="card-link">Learn more →</a>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ========== PRODUCTS ========== -->
+
+<section class="products" id="products">
+    <div class="section-label reveal">Shop Now</div>
+    <h2 class="section-title reveal">Popular Products</h2>
+    <p class="section-sub reveal">Most ordered items by our customers.</p>
+
+    <div class="product-grid">
+        <div class="product-card reveal" style="transition-delay:.1s">
+            <div class="product-badge">Best Seller</div>
+            <div class="product-emoji">💳</div>
+            <h3>Business Cards</h3>
+            <p>350gsm premium stock · Matte & Gloss</p>
+            <div class="product-price-row">
+                <span class="product-price">From $25</span>
+                <a href="/product" class="product-link">Order →</a>
+            </div>
+        </div>
+        <div class="product-card reveal" style="transition-delay:.2s">
+            <div class="product-badge">Popular</div>
+            <div class="product-emoji">📄</div>
+            <h3>Flyers</h3>
+            <p>A5 / A6 full color · 150gsm stock</p>
+            <div class="product-price-row">
+                <span class="product-price">From $40</span>
+                <a href="/product" class="product-link">Order →</a>
+            </div>
+        </div>
+        <div class="product-card reveal" style="transition-delay:.3s">
+            <div class="product-emoji">🏴</div>
+            <h3>Banners</h3>
+            <p>Vinyl · Mesh · Retractable Stands</p>
+            <div class="product-price-row">
+                <span class="product-price">From $15</span>
+                <a href="/product" class="product-link">Order →</a>
+            </div>
+        </div>
+        <div class="product-card reveal" style="transition-delay:.4s">
+            <div class="product-emoji">📘</div>
+            <h3>Brochures</h3>
+            <p>Tri-fold · Saddle-stitch · Custom</p>
+            <div class="product-price-row">
+                <span class="product-price">From $80</span>
+                <a href="/product" class="product-link">Order →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TESTIMONIAL ========== -->
+
+<section class="testimonial-section" id="testimonials">
+    <div class="section-label reveal">Testimonials</div>
+    <h2 class="section-title reveal">What Our Clients Say</h2>
+
+    <div class="testimonial-track reveal">
+        <div class="testimonial-card active">
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">"PrintPress delivered our order two days early and the quality exceeded our expectations. The attention to detail is unmatched. Highly recommended!"</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">SK</div>
+                <div>
+                    <strong>Sarah Khan</strong>
+                    <span>Creative Director, Pixel Studio</span>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">"We've been using PrintPress for all our corporate printing needs for over 3 years. Consistent quality, on-time delivery, and great customer service."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">JM</div>
+                <div>
+                    <strong>James Mitchell</strong>
+                    <span>CEO, Mitchell & Co</span>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">"The best printing service we've worked with. Their design team helped us create stunning marketing materials that really stand out."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">AL</div>
+                <div>
+                    <strong>Aisha Lopez</strong>
+                    <span>Marketing Lead, Bright Ideas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="testimonial-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+    </div>
+</section>
+
+<!-- ========== CTA BANNER ========== -->
+
+<section class="cta-banner reveal">
+    <div class="cta-banner-bg"></div>
+    <div class="cta-banner-content">
+        <h2>Ready to Start Your Print Project?</h2>
+        <p>Get a free quote within 24 hours. No commitment required.</p>
+        <a href="/quote"><button class="cta cta-primary btn-ripple">Get a Free Quote →</button></a>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+
 <footer>
     <div class="footer-grid">
-        <div>
-            <h3>PrintPress</h3>
-            <p>Premium printing services for businesses of all sizes.</p>
+        <div class="footer-brand">
+            <h3><span class="gradient-text">Print</span>Press</h3>
+            <p>Premium printing services for businesses of all sizes. Quality, speed, and reliability — every time.</p>
         </div>
         <div>
             <h4>Quick Links</h4>
             <a href="/services">Services</a>
             <a href="/products">Products</a>
             <a href="/quote">Get a Quote</a>
+            <a href="/about">About Us</a>
         </div>
         <div>
             <h4>Contact</h4>
             <p>hello@printpress.com</p>
             <p>(555) 123-4567</p>
+            <p>123 Commerce St, NY 10001</p>
         </div>
     </div>
     <div class="footer-bottom">
@@ -131,11 +244,141 @@
     </div>
 </footer>
 
+<!-- ========== SCRIPTS ========== -->
+
 <script>
+// ---- Intersection Observer (Scroll Reveal) ----
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: .1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+    observer.observe(el);
+});
+
+// ---- Nav Scroll ----
+let lastScroll = 0;
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
-    nav.classList.toggle('scrolled', window.scrollY > 60);
+    const currentScroll = window.pageYOffset;
+    nav.classList.toggle('scrolled', currentScroll > 80);
+    nav.classList.toggle('nav-hidden', currentScroll > lastScroll && currentScroll > 200);
+    lastScroll = currentScroll;
 });
+
+// ---- Typewriter Effect ----
+const typewriterEl = document.querySelector('.typewriter');
+if (typewriterEl) {
+    const text = typewriterEl.textContent;
+    typewriterEl.style.width = '0';
+    setTimeout(() => {
+        typewriterEl.style.width = text.length + 'ch';
+    }, 400);
+}
+
+// ---- Counter Animation ----
+function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    if (!target) return;
+    let current = 0;
+    const increment = Math.ceil(target / 40);
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+        } else {
+            el.textContent = current;
+        }
+    }, 40);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: .5 });
+
+document.querySelectorAll('.stat-value[data-target]').forEach(el => counterObserver.observe(el));
+
+// ---- 3D Tilt Effect ----
+document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+        const inner = card.querySelector('.tilt-card-inner');
+        const glow = card.querySelector('.tilt-glow');
+        if (inner) {
+            inner.style.setProperty('--rx', rotateX + 'deg');
+            inner.style.setProperty('--ry', rotateY + 'deg');
+        }
+        if (glow) {
+            const gx = (x / rect.width) * 100;
+            const gy = (y / rect.height) * 100;
+            glow.style.setProperty('--gx', gx + '%');
+            glow.style.setProperty('--gy', gy + '%');
+        }
+    });
+    card.addEventListener('mouseleave', () => {
+        const inner = card.querySelector('.tilt-card-inner');
+        if (inner) {
+            inner.style.setProperty('--rx', '0deg');
+            inner.style.setProperty('--ry', '0deg');
+        }
+    });
+});
+
+// ---- Testimonial Carousel ----
+let currentSlide = 0;
+const cards = document.querySelectorAll('.testimonial-card');
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(index) {
+    cards.forEach(c => c.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    cards[index].classList.add('active');
+    dots[index].classList.add('active');
+}
+
+dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        showSlide(parseInt(dot.dataset.index));
+    });
+});
+
+setInterval(() => {
+    currentSlide = (currentSlide + 1) % cards.length;
+    showSlide(currentSlide);
+}, 5000);
+
+// ---- Particle Background ----
+function createParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (15 + Math.random() * 25) + 's';
+        p.style.animationDelay = (Math.random() * 15) + 's';
+        p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+        container.appendChild(p);
+    }
+}
+createParticles();
 </script>
+
 </body>
 </html>
