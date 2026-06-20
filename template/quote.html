@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get a Quote - PrintPress</title>
+<title>Get a Quote — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
 <link rel="stylesheet" href="/static/quote.css">
 </head>
 <body>
 
-<nav>
-    <h2>PrintPress</h2>
-    <div>
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
@@ -19,40 +20,67 @@
 </nav>
 
 <section class="page-header">
-    <h1>Request a Quote</h1>
-    <p>Tell us about your project and we'll get back to you within 24 hours.</p>
+    <div class="header-content anim-fade-up">
+        <h1>Request a Quote</h1>
+        <p>Tell us about your project and we'll get back within 24 hours.</p>
+    </div>
 </section>
 
-<section class="quote-form">
-    <form>
-        <div class="form-row">
-            <input type="text" placeholder="Your Name">
-            <input type="email" placeholder="Email Address">
-        </div>
-        <div class="form-row">
-            <input type="text" placeholder="Company Name">
-            <input type="text" placeholder="Phone Number">
-        </div>
-        <select>
-            <option>Select Print Type</option>
-            <option>Business Cards</option>
-            <option>Flyers / Leaflets</option>
-            <option>Brochures</option>
-            <option>Banners</option>
-            <option>Stickers / Labels</option>
-            <option>Apparel</option>
-            <option>Other</option>
-        </select>
-        <input type="text" placeholder="Quantity">
-        <textarea placeholder="Describe your project — size, paper type, finish, deadline, etc."></textarea>
-
-        <button type="submit">Send Request</button>
-    </form>
+<section class="quote-section">
+    <div class="quote-form anim-fade-up">
+        <form>
+            <div class="form-row">
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Email Address">
+            </div>
+            <div class="form-row">
+                <input type="text" placeholder="Company">
+                <input type="text" placeholder="Phone">
+            </div>
+            <select>
+                <option>Select Print Type</option>
+                <option>Business Cards</option>
+                <option>Flyers / Leaflets</option>
+                <option>Brochures</option>
+                <option>Banners</option>
+                <option>Stickers / Labels</option>
+                <option>Apparel</option>
+                <option>Other</option>
+            </select>
+            <input type="text" placeholder="Estimated Quantity">
+            <textarea placeholder="Describe your project — size, paper type, finish, deadline, and any special requirements."></textarea>
+            <button type="submit" class="btn-ripple">Send Request →</button>
+        </form>
+    </div>
 </section>
 
 <footer>
-    <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
 </footer>
 
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
 </body>
 </html>
