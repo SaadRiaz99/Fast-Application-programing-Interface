@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile — PrintPress</title>
+<link rel="stylesheet" href="/static/animations.css">
+<link rel="stylesheet" href="/static/orders.css">
+<style>
+.profile-card { background: white; border-radius: 16px; padding: 35px; box-shadow: 0 5px 25px rgba(0,0,0,.06); border: 1px solid #f1f5f9; margin-bottom: 25px; }
+.profile-header { display: flex; align-items: center; gap: 25px; margin-bottom: 25px; }
+.avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #ef4444); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: white; }
+.profile-info h2 { font-size: 1.5rem; }
+.profile-info p { color: #64748b; font-size: .95rem; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.info-item { padding: 12px 16px; background: #f8fafc; border-radius: 10px; }
+.info-item .label { font-size: .8rem; color: #64748b; display: block; margin-bottom: 4px; }
+.info-item .value { font-weight: 600; font-size: .95rem; }
+.order-mini { background: white; border-radius: 12px; padding: 18px 22px; margin-bottom: 12px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+.order-mini:hover { border-color: #dc2626; }
+.order-mini .order-ref { font-weight: 700; }
+.order-mini .order-date { color: #64748b; font-size: .88rem; }
+.order-mini .order-amount { font-weight: 700; color: #dc2626; }
+.logout-btn { display: inline-block; padding: 10px 24px; background: #dc2626; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; text-decoration: none; margin-top: 20px; }
+.logout-btn:hover { background: #b91c1c; }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+    <h2 class="logo">PrintPress</h2>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/orders">Orders</a>
+        <a href="/cart">Cart</a>
+    </div>
+</nav>
+
+<section class="orders-section">
+    <h1 class="anim-fade-up">My Profile</h1>
+
+    <div class="profile-card anim-fade-up delay-1">
+        <div class="profile-header">
+            <div class="avatar">{{ user.name[:1] }}</div>
+            <div class="profile-info">
+                <h2>{{ user.name }}</h2>
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">Phone</span>
+                <span class="value">{{ user.phone or 'Not set' }}</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Member Since</span>
+                <span class="value">{{ user.created_at.strftime('%B %Y') if user.created_at else 'N/A' }}</span>
+            </div>
+        </div>
+        <form action="/logout" method="post" style="display: inline;">
+            <button type="submit" class="logout-btn">Sign Out →</button>
+        </form>
+    </div>
+
+    <h2 class="anim-fade-up delay-2" style="margin-bottom: 20px; font-size: 1.3rem;">My Orders</h2>
+    {% if orders %}
+        {% for order in orders %}
+        <a href="/order/{{ order.id }}" style="text-decoration: none; color: inherit; display: block;" class="anim-fade-up delay-{{ loop.index }}">
+            <div class="order-mini">
+                <div>
+                    <span class="order-ref">#PRT-{{ order.id }}</span>
+                    <span class="order-date" style="margin-left: 15px;">{{ order.created_at.strftime('%b %d, %Y') if order.created_at else '' }}</span>
+                </div>
+                <div>
+                    <span class="status {{ order.status }}" style="margin-right: 15px;">{{ order.status|capitalize }}</span>
+                    <span class="order-amount">{{ pkr(order.total) }}</span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <div class="profile-card anim-fade-up delay-3" style="text-align: center;">
+            <p style="color: #888;">You haven't placed any orders yet.</p>
+            <a href="/products" style="color: #6366f1; text-decoration: none; font-weight: 500; display: inline-block; margin-top: 12px;">Browse Products →</a>
+        </div>
+    {% endif %}
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h3>PrintPress</h3>
+            <p>Premium printing services for businesses of all sizes.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <a href="/services">Services</a>
+            <a href="/products">Products</a>
+            <a href="/quote">Get a Quote</a>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <p>hello@printpress.com</p>
+            <p>(555) 123-4567</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 PrintPress. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+</script>
+</body>
+</html>

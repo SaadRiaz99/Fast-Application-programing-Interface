@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Requests — PrintPress</title>
+    <link rel="stylesheet" href="/static/animations.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <style>
+        .table-container {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px rgba(0,0,0,.06);
+            border: 1px solid #f1f5f9;
+            margin-top: 25px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #fafbfd;
+        }
+        .badge-quote {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2 class="logo">PrintPress</h2>
+    <ul>
+        <li><a href="/dashboard" style="color: inherit; text-decoration: none; display: block;">Dashboard</a></li>
+        <li><a href="/orders" style="color: inherit; text-decoration: none; display: block;">Orders</a></li>
+        <li><a href="/products" style="color: inherit; text-decoration: none; display: block;">Products</a></li>
+        <li><a href="/dashboard/customers" style="color: inherit; text-decoration: none; display: block;">Customers</a></li>
+        <li class="active"><a href="/dashboard/quotes" style="color: inherit; text-decoration: none; display: block;">Quote Requests</a></li>
+        <li><a href="/dashboard/messages" style="color: inherit; text-decoration: none; display: block;">Messages</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="/">← Visit Site</a>
+    </div>
+</div>
+
+<div class="main">
+    <header>
+        <h1>Quote Requests</h1>
+        <span class="badge-quote">Total: {{ quotes|length }}</span>
+    </header>
+
+    <div class="table-container anim-scale">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Client Name</th>
+                    <th>Email Address</th>
+                    <th>Project Description</th>
+                    <th>Submitted At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if quotes %}
+                    {% for quote in quotes %}
+                    <tr>
+                        <td><strong>#Q-{{ quote.id }}</strong></td>
+                        <td>{{ quote.name }}</td>
+                        <td>{{ quote.email }}</td>
+                        <td>{{ quote.description }}</td>
+                        <td>{{ quote.created_at.strftime('%Y-%m-%d %H:%M:%S') if quote.created_at else '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #888;">No quote requests submitted yet.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
