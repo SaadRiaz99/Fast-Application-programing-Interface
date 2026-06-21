@@ -36,6 +36,7 @@
         <a href="/">Home</a>
         <a href="/products">Products</a>
         <a href="/orders">My Orders</a>
+        {% if request.cookies.get("user_role") == "admin" %}<a href="/dashboard">Dashboard</a>{% endif %}
     </div>
 </nav>
 

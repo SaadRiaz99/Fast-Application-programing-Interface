@@ -12,6 +12,7 @@ class User(Base):
     email = Column(String(100), unique=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
     phone = Column(String(20))
+    role = Column(String(20), default="customer")
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
 
     cart_items = relationship("Cart", back_populates="user")

@@ -137,6 +137,16 @@ def _get_user_id(request: Request, db: Session) -> int:
     return guest.id
 
 
+def _get_current_user(request: Request, db: Session):
+    uid = request.cookies.get("user_id")
+    if uid:
+        return db.query(User).filter(User.id == int(uid)).first()
+    return None
+
+
+
+
+
 @app.get("/cart")
 async def cart(request: Request, db: Session = Depends(get_db)):
     user_id = _get_user_id(request, db)
@@ -263,8 +273,7 @@ async def order_detail(request: Request, order_id: int, db: Session = Depends(ge
     order = db.query(Order).filter(Order.id == order_id).first()
     if not order:
         return templates.TemplateResponse(request, "orders.html", {"error": "Order not found"})
-    user_id = request.cookies.get("user_id")
-    admin = user_id is not None
+    admin = _check_admin(request, db) is not None
     return templates.TemplateResponse(request, "order_detail.html", {"order": order, "admin": admin})
 
 
@@ -285,8 +294,18 @@ async def update_order_status(
     return RedirectResponse(url=f"/order/{order_id}", status_code=303)
 
 
+def _check_admin(request: Request, db: Session = Depends(get_db)):
+    user = _get_current_user(request, db)
+    if not user or user.role != "admin":
+        return None
+    return user
+
+
 @app.get("/dashboard")
 async def dashboard(request: Request, db: Session = Depends(get_db)):
+    admin = _check_admin(request, db)
+    if not admin:
+        return RedirectResponse(url="/login", status_code=303)
     total_orders = db.query(Order).count()
     total_products = db.query(Product).count()
     total_messages = db.query(ContactMessage).count()
@@ -307,6 +326,9 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
 
 @app.get("/dashboard/orders")
 async def dashboard_orders(request: Request, db: Session = Depends(get_db)):
+    admin = _check_admin(request, db)
+    if not admin:
+        return RedirectResponse(url="/login", status_code=303)
     all_orders = db.query(Order).order_by(Order.created_at.desc()).all()
     return templates.TemplateResponse(request, "dashboard_orders.html", {"orders": all_orders})
 
@@ -335,9 +357,11 @@ async def process_login(
 ):
     user = db.query(User).filter(User.email == email).first()
     if user and pbkdf2_sha256.verify(password, user.password_hash):
-        response = RedirectResponse(url="/dashboard", status_code=303)
+        redirect_url = "/dashboard" if user.role == "admin" else "/"
+        response = RedirectResponse(url=redirect_url, status_code=303)
         response.set_cookie(key="user_id", value=str(user.id), max_age=86400 * 7)
         response.set_cookie(key="user_name", value=user.name, max_age=86400 * 7)
+        response.set_cookie(key="user_role", value=user.role, max_age=86400 * 7)
         return response
     return templates.TemplateResponse(request, "login.html", {"error": "Invalid email or password"})
 
@@ -360,26 +384,37 @@ async def signup(
     if existing:
         return templates.TemplateResponse(request, "signup.html", {"error": "Email already registered"})
     hashed = pbkdf2_sha256.hash(password)
-    user = User(name=name, email=email, password_hash=hashed, phone=phone)
+    role = "admin" if email == "admin@printpress.com" else "customer"
+    user = User(name=name, email=email, password_hash=hashed, phone=phone, role=role)
     db.add(user)
     db.commit()
     response = RedirectResponse(url="/login", status_code=303)
+    response.set_cookie(key="user_role", value=role, max_age=86400 * 7)
     return templates.TemplateResponse(request, "login.html", {"signup_success": True})
 
 
 @app.get("/dashboard/customers")
 async def dashboard_customers(request: Request, db: Session = Depends(get_db)):
+    admin = _check_admin(request, db)
+    if not admin:
+        return RedirectResponse(url="/login", status_code=303)
     users = db.query(User).all()
     return templates.TemplateResponse(request, "dashboard_customers.html", {"users": users})
 
 
 @app.get("/dashboard/quotes")
 async def dashboard_quotes(request: Request, db: Session = Depends(get_db)):
+    admin = _check_admin(request, db)
+    if not admin:
+        return RedirectResponse(url="/login", status_code=303)
     quotes = db.query(Quote).all()
     return templates.TemplateResponse(request, "dashboard_quotes.html", {"quotes": quotes})
 
 
 @app.get("/dashboard/messages")
 async def dashboard_messages(request: Request, db: Session = Depends(get_db)):
+    admin = _check_admin(request, db)
+    if not admin:
+        return RedirectResponse(url="/login", status_code=303)
     messages = db.query(ContactMessage).all()
     return templates.TemplateResponse(request, "dashboard_messages.html", {"messages": messages})

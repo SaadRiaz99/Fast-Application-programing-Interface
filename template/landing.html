@@ -20,6 +20,7 @@
         <a href="/search">Search</a>
         <a href="/quote">Get a Quote</a>
         <a href="/contact">Contact</a>
+        {% if request.cookies.get("user_role") == "admin" %}<a href="/dashboard">Dashboard</a>{% endif %}
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
         <a href="/login"><button class="btn-nav btn-ripple">Sign In</button></a>
     </div>

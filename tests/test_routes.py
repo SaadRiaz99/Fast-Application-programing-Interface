@@ -67,6 +67,12 @@ class TestStaticPages:
         assert response.status_code == 200
 
     def test_dashboard_get(self, client, db):
+        user = User(name="Admin", email="admin@test.com", password_hash=pbkdf2_sha256.hash("p"), role="admin")
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        client.cookies.set("user_id", str(user.id))
+        client.cookies.set("user_role", "admin")
         response = client.get("/dashboard")
         assert response.status_code == 200
 
@@ -209,6 +215,12 @@ class TestDashboardContext:
         db.add(Product(name="P1", slug="p1", price=10, category_id=cat.id))
         db.add(Product(name="P2", slug="p2", price=20, category_id=cat.id))
         db.commit()
+        admin = User(name="Admin", email="admin2@test.com", password_hash=pbkdf2_sha256.hash("p"), role="admin")
+        db.add(admin)
+        db.commit()
+        db.refresh(admin)
+        client.cookies.set("user_id", str(admin.id))
+        client.cookies.set("user_role", "admin")
         response = client.get("/dashboard")
         assert response.status_code == 200
 
@@ -337,6 +349,12 @@ class TestOrderStatusUpdate:
         assert response.status_code == 303
 
     def test_dashboard_orders_page(self, client, db):
+        admin = User(name="Admin", email="admin3@test.com", password_hash=pbkdf2_sha256.hash("p"), role="admin")
+        db.add(admin)
+        db.commit()
+        db.refresh(admin)
+        client.cookies.set("user_id", str(admin.id))
+        client.cookies.set("user_role", "admin")
         response = client.get("/dashboard/orders")
         assert response.status_code == 200
 
@@ -354,7 +372,13 @@ class TestOrderStatusUpdate:
         order = Order(user_id=user.id, total=50, status="pending", shipping_address="Addr")
         db.add(order)
         db.commit()
+        admin = User(name="Admin", email="admin4@test.com", password_hash=pbkdf2_sha256.hash("p"), role="admin")
+        db.add(admin)
+        db.commit()
+        db.refresh(admin)
 
+        client.cookies.set("user_id", str(admin.id))
+        client.cookies.set("user_role", "admin")
         response = client.get("/dashboard")
         assert response.status_code == 200
         assert "pending" in response.text
@@ -366,14 +390,31 @@ class TestOrderStatusUpdate:
         prod = Product(name="P1", slug="p1", price=10, category_id=cat.id)
         db.add(prod)
         db.commit()
-        user = User(name="U", email="u@u.com", password_hash=pbkdf2_sha256.hash("p"))
-        db.add(user)
+        admin = User(name="Admin", email="admin5@test.com", password_hash=pbkdf2_sha256.hash("p"), role="admin")
+        db.add(admin)
         db.commit()
-        db.refresh(user)
-        order = Order(user_id=user.id, total=50, status="pending", shipping_address="Addr")
+        db.refresh(admin)
+        order = Order(user_id=admin.id, total=50, status="pending", shipping_address="Addr")
         db.add(order)
         db.commit()
 
+        client.cookies.set("user_id", str(admin.id))
+        client.cookies.set("user_role", "admin")
         response = client.get("/dashboard/orders")
         assert response.status_code == 200
         assert "#PRT-" in response.text
+
+    def test_dashboard_redirects_non_admin(self, client, db):
+        user = User(name="Regular", email="reg@test.com", password_hash=pbkdf2_sha256.hash("p"), role="customer")
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+        client.cookies.set("user_id", str(user.id))
+        client.cookies.set("user_role", "customer")
+        response = client.get("/dashboard", follow_redirects=False)
+        assert response.status_code == 303
+
+    def test_dashboard_redirects_guest(self, client, db):
+        response = client.get("/dashboard", follow_redirects=False)
+        assert response.status_code == 303

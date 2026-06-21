@@ -16,6 +16,7 @@
         <a href="/services">Services</a>
         <a href="/products">Products</a>
         <a href="/contact">Contact</a>
+        {% if request.cookies.get("user_role") == "admin" %}<a href="/dashboard">Dashboard</a>{% endif %}
     </div>
 </nav>
 
