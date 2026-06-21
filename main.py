@@ -263,7 +263,26 @@ async def order_detail(request: Request, order_id: int, db: Session = Depends(ge
     order = db.query(Order).filter(Order.id == order_id).first()
     if not order:
         return templates.TemplateResponse(request, "orders.html", {"error": "Order not found"})
-    return templates.TemplateResponse(request, "order_detail.html", {"order": order})
+    user_id = request.cookies.get("user_id")
+    admin = user_id is not None
+    return templates.TemplateResponse(request, "order_detail.html", {"order": order, "admin": admin})
+
+
+@app.post("/order/{order_id}/status")
+async def update_order_status(
+    request: Request,
+    order_id: int,
+    status: str = Form(...),
+    db: Session = Depends(get_db),
+):
+    valid_statuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"]
+    if status not in valid_statuses:
+        return RedirectResponse(url=f"/order/{order_id}", status_code=303)
+    order = db.query(Order).filter(Order.id == order_id).first()
+    if order:
+        order.status = status
+        db.commit()
+    return RedirectResponse(url=f"/order/{order_id}", status_code=303)
 
 
 @app.get("/dashboard")
@@ -271,11 +290,25 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
     total_orders = db.query(Order).count()
     total_products = db.query(Product).count()
     total_messages = db.query(ContactMessage).count()
+    pending_orders = db.query(Order).filter(Order.status == "pending").count()
+    recent_orders = db.query(Order).order_by(Order.created_at.desc()).limit(5).all()
     return templates.TemplateResponse(
         request,
         "dashboard.html",
-        {"total_orders": total_orders, "total_products": total_products, "total_messages": total_messages},
+        {
+            "total_orders": total_orders,
+            "total_products": total_products,
+            "total_messages": total_messages,
+            "pending_orders": pending_orders,
+            "recent_orders": recent_orders,
+        },
     )
+
+
+@app.get("/dashboard/orders")
+async def dashboard_orders(request: Request, db: Session = Depends(get_db)):
+    all_orders = db.query(Order).order_by(Order.created_at.desc()).all()
+    return templates.TemplateResponse(request, "dashboard_orders.html", {"orders": all_orders})
 
 
 @app.get("/orders")

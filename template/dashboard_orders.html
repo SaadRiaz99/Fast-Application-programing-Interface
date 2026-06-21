@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders — PrintPress</title>
+    <link rel="stylesheet" href="/static/animations.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <style>
+        .orders-card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 5px 25px rgba(0,0,0,.06); border: 1px solid #f1f5f9; }
+        .orders-card h2 { font-size: 1.15rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .orders-table { width: 100%; border-collapse: collapse; }
+        .orders-table th { text-align: left; padding: 12px 14px; background: #f8fafc; color: #64748b; font-size: .82rem; font-weight: 600; }
+        .orders-table td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; font-size: .9rem; vertical-align: middle; }
+        .orders-table tr:hover td { background: #f8fafc; }
+        .orders-table .order-ref-link { color: #6366f1; font-weight: 600; text-decoration: none; }
+        .orders-table .order-ref-link:hover { text-decoration: underline; }
+        .status-select { padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: .82rem; font-weight: 500; cursor: pointer; }
+        .status-select:focus { outline: none; border-color: #6366f1; }
+        .update-btn { background: #6366f1; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: .8rem; font-weight: 600; cursor: pointer; }
+        .update-btn:hover { background: #4f46e5; }
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-bar a { padding: 8px 18px; border-radius: 20px; font-size: .85rem; font-weight: 500; text-decoration: none; color: #64748b; background: #f1f5f9; transition: all .2s; }
+        .filter-bar a:hover { background: #e2e8f0; }
+        .filter-bar a.active { background: #6366f1; color: white; }
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: .75rem; font-weight: 600; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #6366f1; text-decoration: none; font-weight: 500; margin-bottom: 25px; }
+        .back-link:hover { gap: 10px; }
+        @media (max-width: 768px) {
+            .orders-table th:nth-child(4),
+            .orders-table td:nth-child(4),
+            .orders-table th:nth-child(5),
+            .orders-table td:nth-child(5) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2 class="logo">PrintPress</h2>
+    <ul>
+        <li><a href="/dashboard" style="color: inherit; text-decoration: none; display: block;">Dashboard</a></li>
+        <li class="active"><a href="/dashboard/orders" style="color: inherit; text-decoration: none; display: block;">Orders</a></li>
+        <li><a href="/products" style="color: inherit; text-decoration: none; display: block;">Products</a></li>
+        <li><a href="/dashboard/customers" style="color: inherit; text-decoration: none; display: block;">Customers</a></li>
+        <li><a href="/dashboard/quotes" style="color: inherit; text-decoration: none; display: block;">Quote Requests</a></li>
+        <li><a href="/dashboard/messages" style="color: inherit; text-decoration: none; display: block;">Messages</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <a href="/">← Visit Site</a>
+    </div>
+</div>
+
+<div class="main">
+    <header>
+        <h1>Manage Orders</h1>
+    </header>
+
+    <div class="orders-card anim-fade-up delay-1">
+        {% if orders %}
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td><a href="/order/{{ order.id }}" class="order-ref-link">#PRT-{{ order.id }}</a></td>
+                    <td>{{ order.name or 'Guest' }}</td>
+                    <td>{{ order.created_at.strftime('%b %d, %Y') if order.created_at else 'N/A' }}</td>
+                    <td style="font-weight: 600; color: #dc2626;">{{ pkr(order.total) }}</td>
+                    <td><span class="badge status {{ order.status }}">{{ order.status|capitalize }}</span></td>
+                    <td>
+                        <form action="/order/{{ order.id }}/status" method="post" style="display: flex; gap: 6px; align-items: center;">
+                            <select name="status" class="status-select">
+                                <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="confirmed" {% if order.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+                                <option value="processing" {% if order.status == 'processing' %}selected{% endif %}>Processing</option>
+                                <option value="shipped" {% if order.status == 'shipped' %}selected{% endif %}>Shipped</option>
+                                <option value="delivered" {% if order.status == 'delivered' %}selected{% endif %}>Delivered</option>
+                                <option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                            </select>
+                            <button type="submit" class="update-btn">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="color: #94a3b8; text-align: center; padding: 40px;">No orders found.</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

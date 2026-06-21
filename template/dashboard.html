@@ -6,6 +6,28 @@
     <title>Dashboard — PrintPress</title>
     <link rel="stylesheet" href="/static/animations.css">
     <link rel="stylesheet" href="/static/dashboard.css">
+    <style>
+        .alert-banner { display: flex; align-items: center; gap: 15px; background: linear-gradient(135deg, #fef3c7, #fde68a); border: 1px solid #f59e0b; border-radius: 12px; padding: 18px 24px; margin-bottom: 25px; }
+        .alert-banner .alert-icon { font-size: 1.8rem; }
+        .alert-banner .alert-text { flex: 1; }
+        .alert-banner .alert-text strong { color: #92400e; font-size: 1.05rem; }
+        .alert-banner .alert-text p { color: #78350f; font-size: .9rem; margin-top: 2px; }
+        .alert-banner .alert-btn { background: #f59e0b; color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; font-size: .9rem; }
+        .alert-banner .alert-btn:hover { background: #d97706; }
+        .recent-section { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 5px 25px rgba(0,0,0,.06); border: 1px solid #f1f5f9; margin-top: 30px; }
+        .recent-section h2 { font-size: 1.15rem; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+        .recent-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #f8fafc; }
+        .recent-item:last-child { border-bottom: none; }
+        .recent-item .order-ref { font-weight: 700; font-size: .95rem; }
+        .recent-item .order-date { color: #64748b; font-size: .85rem; }
+        .recent-item .order-amount { font-weight: 600; color: #dc2626; font-size: .92rem; }
+        .recent-item .order-status { font-size: .78rem; padding: 3px 12px; border-radius: 20px; font-weight: 600; }
+        .view-all { display: inline-block; margin-top: 15px; color: #6366f1; text-decoration: none; font-weight: 500; font-size: .9rem; }
+        .view-all:hover { text-decoration: underline; }
+        .card-icon-small { font-size: 1.5rem; margin-bottom: 10px; }
+        .card-change.up { color: #16a34a; }
+        .card-change.warn { color: #f59e0b; }
+    </style>
 </head>
 <body>
 
@@ -13,7 +35,7 @@
     <h2 class="logo">PrintPress</h2>
     <ul>
         <li class="active"><a href="/dashboard" style="color: inherit; text-decoration: none; display: block;">Dashboard</a></li>
-        <li><a href="/orders" style="color: inherit; text-decoration: none; display: block;">Orders</a></li>
+        <li><a href="/dashboard/orders" style="color: inherit; text-decoration: none; display: block;">Orders</a></li>
         <li><a href="/products" style="color: inherit; text-decoration: none; display: block;">Products</a></li>
         <li><a href="/dashboard/customers" style="color: inherit; text-decoration: none; display: block;">Customers</a></li>
         <li><a href="/dashboard/quotes" style="color: inherit; text-decoration: none; display: block;">Quote Requests</a></li>
@@ -27,15 +49,29 @@
 <div class="main">
     <header>
         <h1>Admin Dashboard</h1>
-        <button class="btn-ripple">+ New Order</button>
     </header>
+
+    {% if pending_orders and pending_orders > 0 %}
+    <div class="alert-banner anim-fade-down">
+        <div class="alert-icon">🔔</div>
+        <div class="alert-text">
+            <strong>{{ pending_orders }} New Order{% if pending_orders > 1 %}s{% endif %} Received!</strong>
+            <p>You have pending orders that need your attention. Review and confirm them.</p>
+        </div>
+        <a href="/dashboard/orders" class="alert-btn">View Orders →</a>
+    </div>
+    {% endif %}
 
     <section class="cards">
         <div class="card anim-scale delay-1">
             <div class="card-icon-small">📋</div>
             <h3>Total Orders</h3>
             <p class="card-num">{{ total_orders }}</p>
-            <span class="card-change up">↑ 100% database active</span>
+            {% if pending_orders and pending_orders > 0 %}
+            <span class="card-change warn">⏳ {{ pending_orders }} pending</span>
+            {% else %}
+            <span class="card-change up">All orders processed</span>
+            {% endif %}
         </div>
         <div class="card anim-scale delay-2">
             <div class="card-icon-small">⚙️</div>
@@ -56,6 +92,29 @@
             <span class="card-change">Inbox active</span>
         </div>
     </section>
+
+    <div class="recent-section anim-fade-up delay-3">
+        <h2>📋 Recent Orders</h2>
+        {% if recent_orders %}
+            {% for order in recent_orders %}
+            <a href="/order/{{ order.id }}" style="text-decoration: none; color: inherit;">
+            <div class="recent-item">
+                <div>
+                    <span class="order-ref">#PRT-{{ order.id }}</span>
+                    <span class="order-date" style="margin-left: 12px;">{{ order.created_at.strftime('%b %d, %Y') if order.created_at else '' }}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span class="order-status status {{ order.status }}">{{ order.status|capitalize }}</span>
+                    <span class="order-amount">{{ pkr(order.total) }}</span>
+                </div>
+            </div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <p style="color: #94a3b8; text-align: center; padding: 20px;">No orders placed yet.</p>
+        {% endif %}
+        <a href="/dashboard/orders" class="view-all">View all orders →</a>
+    </div>
 </div>
 
 </body>

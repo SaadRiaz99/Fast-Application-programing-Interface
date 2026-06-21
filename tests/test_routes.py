@@ -285,3 +285,95 @@ class TestOrderDetail:
         response = client.get("/profile")
         assert response.status_code == 200
         assert "Profile User" in response.text
+
+
+class TestOrderStatusUpdate:
+    def test_order_status_update_success(self, client, db):
+        cat = Category(name="Cat", slug="cat")
+        db.add(cat)
+        db.commit()
+        prod = Product(name="P1", slug="p1", price=10, category_id=cat.id)
+        db.add(prod)
+        db.commit()
+        user = User(name="U", email="u@u.com", password_hash=pbkdf2_sha256.hash("p"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        order = Order(user_id=user.id, total=50, status="pending", shipping_address="Addr")
+        db.add(order)
+        db.commit()
+        db.refresh(order)
+
+        client.cookies.set("user_id", str(user.id))
+        response = client.post(f"/order/{order.id}/status", data={"status": "confirmed"}, follow_redirects=False)
+        assert response.status_code == 303
+        db.refresh(order)
+        assert order.status == "confirmed"
+
+    def test_order_status_update_invalid(self, client, db):
+        cat = Category(name="Cat", slug="cat")
+        db.add(cat)
+        db.commit()
+        prod = Product(name="P1", slug="p1", price=10, category_id=cat.id)
+        db.add(prod)
+        db.commit()
+        user = User(name="U", email="u@u.com", password_hash=pbkdf2_sha256.hash("p"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        order = Order(user_id=user.id, total=50, status="pending", shipping_address="Addr")
+        db.add(order)
+        db.commit()
+        db.refresh(order)
+
+        response = client.post(f"/order/{order.id}/status", data={"status": "invalid_status"}, follow_redirects=False)
+        assert response.status_code == 303
+        db.refresh(order)
+        assert order.status == "pending"
+
+    def test_order_status_update_not_found(self, client, db):
+        client.cookies.set("user_id", "1")
+        response = client.post("/order/999/status", data={"status": "confirmed"}, follow_redirects=False)
+        assert response.status_code == 303
+
+    def test_dashboard_orders_page(self, client, db):
+        response = client.get("/dashboard/orders")
+        assert response.status_code == 200
+
+    def test_dashboard_with_pending_orders(self, client, db):
+        cat = Category(name="Cat", slug="cat")
+        db.add(cat)
+        db.commit()
+        prod = Product(name="P1", slug="p1", price=10, category_id=cat.id)
+        db.add(prod)
+        db.commit()
+        user = User(name="U", email="u@u.com", password_hash=pbkdf2_sha256.hash("p"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        order = Order(user_id=user.id, total=50, status="pending", shipping_address="Addr")
+        db.add(order)
+        db.commit()
+
+        response = client.get("/dashboard")
+        assert response.status_code == 200
+        assert "pending" in response.text
+
+    def test_dashboard_orders_with_data(self, client, db):
+        cat = Category(name="Cat", slug="cat")
+        db.add(cat)
+        db.commit()
+        prod = Product(name="P1", slug="p1", price=10, category_id=cat.id)
+        db.add(prod)
+        db.commit()
+        user = User(name="U", email="u@u.com", password_hash=pbkdf2_sha256.hash("p"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        order = Order(user_id=user.id, total=50, status="pending", shipping_address="Addr")
+        db.add(order)
+        db.commit()
+
+        response = client.get("/dashboard/orders")
+        assert response.status_code == 200
+        assert "#PRT-" in response.text
