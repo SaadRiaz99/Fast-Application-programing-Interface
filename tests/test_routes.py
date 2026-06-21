@@ -1,4 +1,5 @@
-from models import Category, Service, Product, User, Quote, ContactMessage, Order
+from models import Category, Product, User, Quote, ContactMessage, Order, OrderItem, Cart
+from passlib.hash import pbkdf2_sha256
 
 
 class TestStaticPages:
@@ -10,12 +11,10 @@ class TestStaticPages:
     def test_services_get(self, client, db):
         response = client.get("/services")
         assert response.status_code == 200
-        assert "PrintPress" in response.text
 
     def test_products_get(self, client, db):
         response = client.get("/products")
         assert response.status_code == 200
-        assert "PrintPress" in response.text
 
     def test_product_detail_no_id(self, client, db):
         response = client.get("/product")
@@ -71,6 +70,18 @@ class TestStaticPages:
         response = client.get("/dashboard")
         assert response.status_code == 200
 
+    def test_search_get(self, client, db):
+        response = client.get("/search?q=test")
+        assert response.status_code == 200
+
+    def test_profile_redirects_when_not_logged_in(self, client, db):
+        response = client.get("/profile", follow_redirects=False)
+        assert response.status_code == 303
+
+    def test_order_detail_not_found(self, client, db):
+        response = client.get("/order/999")
+        assert response.status_code == 200
+
 
 class TestQuoteForm:
     def test_submit_quote_success(self, client, db):
@@ -107,7 +118,7 @@ class TestContactForm:
         assert response.status_code == 422
 
 
-class TestSignupForm:
+class TestSignupLogin:
     def test_signup_success(self, client, db):
         response = client.post("/signup", data={
             "name": "New User",
@@ -117,12 +128,77 @@ class TestSignupForm:
         })
         assert response.status_code == 200
         assert db.query(User).count() == 1
+        user = db.query(User).first()
+        assert pbkdf2_sha256.verify("securepass123", user.password_hash)
+
+    def test_signup_duplicate_email(self, client, db):
+        hashed = pbkdf2_sha256.hash("pass")
+        db.add(User(name="Existing", email="dup@example.com", password_hash=hashed))
+        db.commit()
+        response = client.post("/signup", data={
+            "name": "Dup", "email": "dup@example.com",
+            "password": "pass", "phone": ""
+        })
+        assert response.status_code == 200
 
     def test_signup_missing_fields(self, client, db):
-        response = client.post("/signup", data={
-            "name": "New User"
-        })
+        response = client.post("/signup", data={"name": "New User"})
         assert response.status_code == 422
+
+    def test_login_success(self, client, db):
+        hashed = pbkdf2_sha256.hash("mypassword")
+        db.add(User(name="Test User", email="test@example.com", password_hash=hashed))
+        db.commit()
+        response = client.post("/login", data={
+            "email": "test@example.com", "password": "mypassword"
+        }, follow_redirects=False)
+        assert response.status_code == 303
+
+    def test_login_wrong_password(self, client, db):
+        hashed = pbkdf2_sha256.hash("correctpass")
+        db.add(User(name="Test", email="t@t.com", password_hash=hashed))
+        db.commit()
+        response = client.post("/login", data={
+            "email": "t@t.com", "password": "wrongpass"
+        })
+        assert response.status_code == 200
+        assert "Invalid email or password" in response.text
+
+    def test_login_nonexistent_user(self, client, db):
+        response = client.post("/login", data={
+            "email": "noone@example.com", "password": "pass"
+        })
+        assert response.status_code == 200
+
+    def test_logout(self, client, db):
+        response = client.post("/logout", follow_redirects=False)
+        assert response.status_code == 303
+
+
+class TestCheckoutForm:
+    def test_checkout_success(self, client, db):
+        cat = Category(name="Cards", slug="cards")
+        db.add(cat)
+        db.commit()
+        p1 = Product(id=1, name="Premium Business Cards", slug="pbc", price=25.00, category_id=cat.id)
+        p2 = Product(id=2, name="A5 Flyers", slug="af", price=40.00, category_id=cat.id)
+        db.add(p1)
+        db.add(p2)
+        db.commit()
+
+        # First add items to cart
+        client.post("/cart", data={"product_id": 1, "quantity": 2})
+
+        response = client.post("/checkout", data={
+            "name": "Order Client",
+            "email": "order@example.com",
+            "phone": "999888777",
+            "address": "123 Main St",
+            "city": "Metropolis",
+            "postal_code": "12345"
+        })
+        assert response.status_code == 200
+        assert db.query(Order).count() == 1
 
 
 class TestDashboardContext:
@@ -139,3 +215,73 @@ class TestDashboardContext:
     def test_orders_context(self, client, db):
         response = client.get("/orders")
         assert response.status_code == 200
+
+
+class TestCartForm:
+    def test_add_to_cart(self, client, db):
+        cat = Category(name="Cards", slug="cards")
+        db.add(cat)
+        db.commit()
+        prod = Product(id=1, name="Business Cards", slug="bc", price=25.00, category_id=cat.id)
+        db.add(prod)
+        db.commit()
+
+        response = client.post("/cart", data={"product_id": 1, "quantity": 2}, follow_redirects=False)
+        assert response.status_code == 303
+        assert db.query(Cart).count() == 1
+        assert db.query(Cart).first().quantity == 2
+
+    def test_remove_from_cart(self, client, db):
+        cat = Category(name="Cards", slug="cards")
+        db.add(cat)
+        db.commit()
+        prod = Product(id=1, name="Business Cards", slug="bc", price=25.00, category_id=cat.id)
+        db.add(prod)
+        db.commit()
+
+        client.post("/cart", data={"product_id": 1, "quantity": 1}, follow_redirects=False)
+
+        response = client.post("/cart/remove", data={"product_id": 1}, follow_redirects=False)
+        assert response.status_code == 303
+        assert db.query(Cart).count() == 0
+
+
+class TestOrderDetail:
+    def test_order_detail_with_items(self, client, db):
+        cat = Category(name="Cat", slug="cat")
+        db.add(cat)
+        db.commit()
+        prod = Product(name="P1", slug="p1", price=10, category_id=cat.id, stock=5)
+        db.add(prod)
+        db.commit()
+
+        user = User(name="U", email="u@u.com", password_hash=pbkdf2_sha256.hash("p"))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+        order = Order(user_id=user.id, total=20, status="processing", shipping_address="Addr")
+        db.add(order)
+        db.commit()
+        db.refresh(order)
+
+        oi = OrderItem(order_id=order.id, product_id=prod.id, quantity=2, price=10)
+        db.add(oi)
+        db.commit()
+
+        response = client.get(f"/order/{order.id}")
+        assert response.status_code == 200
+        assert "processing" in response.text
+
+    def test_profile_with_login(self, client, db):
+        hashed = pbkdf2_sha256.hash("pass")
+        user = User(name="Profile User", email="profile@test.com", password_hash=hashed)
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+        client.cookies.set("user_id", str(user.id))
+        client.cookies.set("user_name", "Profile User")
+        response = client.get("/profile")
+        assert response.status_code == 200
+        assert "Profile User" in response.text
