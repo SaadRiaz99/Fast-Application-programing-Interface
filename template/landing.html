@@ -26,15 +26,10 @@
 <!-- ========== HERO ========== -->
 
 <section class="hero">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="particle-container" id="particles"></div>
-
     <div class="hero-content">
         <div class="hero-badge anim-fade-down">🔥 Trusted by 10,000+ businesses</div>
         <h1 class="hero-title">
-            <span class="typewriter typewriter-cursor">High-Quality Printing</span><br>
+            High-Quality Printing<br>
             <span class="gradient-text">Delivered On Time</span>
         </h1>
         <p class="hero-sub">From business cards to banners — we bring your designs to life with precision and speed.</p>
@@ -70,41 +65,29 @@
     <p class="section-sub reveal">Everything you need to bring your brand to paper.</p>
 
     <div class="service-grid">
-        <div class="service-card tilt-card reveal" style="transition-delay:.1s">
-            <div class="tilt-card-inner">
-                <div class="tilt-glow"></div>
-                <div class="card-icon-wrap">🖨️</div>
-                <h3>Digital Printing</h3>
-                <p>Fast turnaround for small to medium runs with vibrant color accuracy.</p>
-                <a href="/services" class="card-link">Learn more →</a>
-            </div>
+        <div class="service-card reveal" style="transition-delay:.1s">
+            <div class="card-icon-wrap">🖨️</div>
+            <h3>Digital Printing</h3>
+            <p>Fast turnaround for small to medium runs with vibrant color accuracy.</p>
+            <a href="/services" class="card-link">Learn more →</a>
         </div>
-        <div class="service-card tilt-card reveal" style="transition-delay:.2s">
-            <div class="tilt-card-inner">
-                <div class="tilt-glow"></div>
-                <div class="card-icon-wrap">⚙️</div>
-                <h3>Offset Printing</h3>
-                <p>High-volume commercial printing at the best per-unit cost.</p>
-                <a href="/services" class="card-link">Learn more →</a>
-            </div>
+        <div class="service-card reveal" style="transition-delay:.2s">
+            <div class="card-icon-wrap">⚙️</div>
+            <h3>Offset Printing</h3>
+            <p>High-volume commercial printing at the best per-unit cost.</p>
+            <a href="/services" class="card-link">Learn more →</a>
         </div>
-        <div class="service-card tilt-card reveal" style="transition-delay:.3s">
-            <div class="tilt-card-inner">
-                <div class="tilt-glow"></div>
-                <div class="card-icon-wrap">🖼️</div>
-                <h3>Large Format</h3>
-                <p>Banners, posters, and signage for indoor and outdoor use.</p>
-                <a href="/services" class="card-link">Learn more →</a>
-            </div>
+        <div class="service-card reveal" style="transition-delay:.3s">
+            <div class="card-icon-wrap">🖼️</div>
+            <h3>Large Format</h3>
+            <p>Banners, posters, and signage for indoor and outdoor use.</p>
+            <a href="/services" class="card-link">Learn more →</a>
         </div>
-        <div class="service-card tilt-card reveal" style="transition-delay:.4s">
-            <div class="tilt-card-inner">
-                <div class="tilt-glow"></div>
-                <div class="card-icon-wrap">👕</div>
-                <h3>Merch & Apparel</h3>
-                <p>Custom t-shirts, hoodies, and promotional merchandise.</p>
-                <a href="/services" class="card-link">Learn more →</a>
-            </div>
+        <div class="service-card reveal" style="transition-delay:.4s">
+            <div class="card-icon-wrap">👕</div>
+            <h3>Merch & Apparel</h3>
+            <p>Custom t-shirts, hoodies, and promotional merchandise.</p>
+            <a href="/services" class="card-link">Learn more →</a>
         </div>
     </div>
 </section>
@@ -256,29 +239,13 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: .1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
-    observer.observe(el);
-});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // ---- Nav Scroll ----
-let lastScroll = 0;
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
-    const currentScroll = window.pageYOffset;
-    nav.classList.toggle('scrolled', currentScroll > 80);
-    nav.classList.toggle('nav-hidden', currentScroll > lastScroll && currentScroll > 200);
-    lastScroll = currentScroll;
+    nav.classList.toggle('scrolled', window.pageYOffset > 80);
 });
-
-// ---- Typewriter Effect ----
-const typewriterEl = document.querySelector('.typewriter');
-if (typewriterEl) {
-    const text = typewriterEl.textContent;
-    typewriterEl.style.width = '0';
-    setTimeout(() => {
-        typewriterEl.style.width = text.length + 'ch';
-    }, 400);
-}
 
 // ---- Counter Animation ----
 function animateCounter(el) {
@@ -308,40 +275,7 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.stat-value[data-target]').forEach(el => counterObserver.observe(el));
 
-// ---- 3D Tilt Effect ----
-document.querySelectorAll('.tilt-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-        const inner = card.querySelector('.tilt-card-inner');
-        const glow = card.querySelector('.tilt-glow');
-        if (inner) {
-            inner.style.setProperty('--rx', rotateX + 'deg');
-            inner.style.setProperty('--ry', rotateY + 'deg');
-        }
-        if (glow) {
-            const gx = (x / rect.width) * 100;
-            const gy = (y / rect.height) * 100;
-            glow.style.setProperty('--gx', gx + '%');
-            glow.style.setProperty('--gy', gy + '%');
-        }
-    });
-    card.addEventListener('mouseleave', () => {
-        const inner = card.querySelector('.tilt-card-inner');
-        if (inner) {
-            inner.style.setProperty('--rx', '0deg');
-            inner.style.setProperty('--ry', '0deg');
-        }
-    });
-});
-
-// ---- Testimonial Carousel ----
-let currentSlide = 0;
+// ---- Testimonial Carousel (Manual Only) ----
 const cards = document.querySelectorAll('.testimonial-card');
 const dots = document.querySelectorAll('.dot');
 
@@ -357,27 +291,6 @@ dots.forEach(dot => {
         showSlide(parseInt(dot.dataset.index));
     });
 });
-
-setInterval(() => {
-    currentSlide = (currentSlide + 1) % cards.length;
-    showSlide(currentSlide);
-}, 5000);
-
-// ---- Particle Background ----
-function createParticles() {
-    const container = document.getElementById('particles');
-    if (!container) return;
-    for (let i = 0; i < 30; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (15 + Math.random() * 25) + 's';
-        p.style.animationDelay = (Math.random() * 15) + 's';
-        p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
-        container.appendChild(p);
-    }
-}
-createParticles();
 </script>
 
 </body>
