@@ -12,11 +12,12 @@
 <div class="sidebar">
     <h2 class="logo">PrintPress</h2>
     <ul>
-        <li class="active">Dashboard</li>
-        <li>Orders</li>
-        <li>Products</li>
-        <li>Customers</li>
-        <li>Quote Requests</li>
+        <li class="active"><a href="/dashboard" style="color: inherit; text-decoration: none; display: block;">Dashboard</a></li>
+        <li><a href="/orders" style="color: inherit; text-decoration: none; display: block;">Orders</a></li>
+        <li><a href="/products" style="color: inherit; text-decoration: none; display: block;">Products</a></li>
+        <li><a href="/dashboard/customers" style="color: inherit; text-decoration: none; display: block;">Customers</a></li>
+        <li><a href="/dashboard/quotes" style="color: inherit; text-decoration: none; display: block;">Quote Requests</a></li>
+        <li><a href="/dashboard/messages" style="color: inherit; text-decoration: none; display: block;">Messages</a></li>
     </ul>
     <div class="sidebar-footer">
         <a href="/">← Visit Site</a>
@@ -32,27 +33,27 @@
     <section class="cards">
         <div class="card anim-scale delay-1">
             <div class="card-icon-small">📋</div>
-            <h3>Pending Orders</h3>
-            <p class="card-num">23</p>
-            <span class="card-change up">↑ 12% this week</span>
+            <h3>Total Orders</h3>
+            <p class="card-num">{{ total_orders }}</p>
+            <span class="card-change up">↑ 100% database active</span>
         </div>
         <div class="card anim-scale delay-2">
             <div class="card-icon-small">⚙️</div>
-            <h3>In Production</h3>
-            <p class="card-num">12</p>
-            <span class="card-change">On track</span>
+            <h3>Total Products</h3>
+            <p class="card-num">{{ total_products }}</p>
+            <span class="card-change">Live items</span>
         </div>
         <div class="card anim-scale delay-3">
             <div class="card-icon-small">💰</div>
             <h3>Monthly Revenue</h3>
-            <p class="card-num">$18,420</p>
+            <p class="card-num">{{ PKR }} 18,420</p>
             <span class="card-change up">↑ 8% vs last month</span>
         </div>
         <div class="card anim-scale delay-4">
             <div class="card-icon-small">📩</div>
-            <h3>Quote Requests</h3>
-            <p class="card-num">8</p>
-            <span class="card-change">3 unread</span>
+            <h3>Contact Messages</h3>
+            <p class="card-num">{{ total_messages }}</p>
+            <span class="card-change">Inbox active</span>
         </div>
     </section>
 </div>

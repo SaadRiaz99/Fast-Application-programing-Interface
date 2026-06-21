@@ -1,6 +1,51 @@
 /* ============================================================
-   PRINTPRESS — ANIMATION SYSTEM
+   PRINTPRESS — THEME SYSTEM & ANIMATIONS
    ============================================================ */
+
+:root {
+    --bg: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --bg-secondary: #0f172a;
+    --text: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border: #f1f5f9;
+    --border-hover: #dc2626;
+    --shadow: 0 5px 25px rgba(0,0,0,.06);
+    --accent: #dc2626;
+    --accent-hover: #b91c1c;
+    --accent-glow: rgba(220,38,38,.35);
+}
+
+[data-theme="dark"] {
+    --bg: #0a0e17;
+    --bg-card: #1a2332;
+    --bg-card-hover: #1e293b;
+    --bg-secondary: #0f172a;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: rgba(255,255,255,.06);
+    --border-hover: rgba(220,38,38,.3);
+    --shadow: 0 8px 40px rgba(0,0,0,.2);
+    --accent: #dc2626;
+    --accent-hover: #b91c1c;
+    --accent-glow: rgba(220,38,38,.3);
+}
+
+/* ========== THEME TOGGLE ========== */
+
+.theme-toggle {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.2rem; padding: 6px 10px; border-radius: 8px;
+    transition: all .3s ease; line-height: 1;
+}
+.theme-toggle:hover {
+    background: rgba(255,255,255,.1);
+    transform: scale(1.1);
+}
+[data-theme="dark"] body { background: var(--bg); color: var(--text); }
 
 @keyframes fadeInUp {
     from { opacity:0; transform:translateY(30px); }
