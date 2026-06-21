@@ -28,66 +28,33 @@
 </section>
 
 <section class="services-list">
-    <div class="service-item anim-fade-up delay-1">
-        <div class="service-icon">🖨️</div>
-        <div class="service-info">
-            <h2>Digital Printing</h2>
-            <p>Perfect for short runs and fast deadlines. Full-color digital printing with quick turnaround — ideal for flyers, brochures, and business cards. No minimum quantity.</p>
-            <ul>
-                <li>Turnaround: 1–3 business days</li>
-                <li>Stock: Up to 400gsm</li>
-                <li>Finish: Gloss, Matte, Soft-touch</li>
-            </ul>
+    {% if services %}
+        {% for svc in services %}
+        <div class="service-item anim-fade-up delay-{{ loop.index }}">
+            <div class="service-icon">
+                {% if svc.name == "Digital Printing" %}🖨️
+                {% elif svc.name == "Offset Printing" %}⚙️
+                {% elif svc.name == "Large Format" %}🖼️
+                {% elif svc.name == "Design Services" %}🎨
+                {% else %}💼
+                {% endif %}
+            </div>
+            <div class="service-info">
+                <h2>{{ svc.name }}</h2>
+                <p>{{ svc.description }}</p>
+                {% if svc.price %}
+                <p class="service-price" style="font-weight: 600; color: #6366f1; margin-top: 10px;">
+                    Starting from {{ pkr(svc.price) }}
+                </p>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    <div class="service-item anim-fade-up delay-2">
-        <div class="service-icon">⚙️</div>
-        <div class="service-info">
-            <h2>Offset Printing</h2>
-            <p>High-volume commercial printing with precise Pantone color matching. Best value for runs of 500+ units. Ideal for magazines, catalogs, and corporate stationery.</p>
-            <ul>
-                <li>Turnaround: 5–7 business days</li>
-                <li>Stock: 80–350gsm</li>
-                <li>Finish: UV, Foil, Emboss</li>
-            </ul>
+        {% endfor %}
+    {% else %}
+        <div style="text-align: center; width: 100%; padding: 40px; color: #888;">
+            <p>No services currently configured.</p>
         </div>
-    </div>
-    <div class="service-item anim-fade-up delay-3">
-        <div class="service-icon">🖼️</div>
-        <div class="service-info">
-            <h2>Large Format</h2>
-            <p>Banners, posters, vinyl decals, and trade show displays. UV-resistant inks for indoor and outdoor use. Sizes up to 16ft wide.</p>
-            <ul>
-                <li>Materials: Vinyl, Mesh, Fabric</li>
-                <li>Finish: Matte, Gloss, Laminate</li>
-                <li>Installation available</li>
-            </ul>
-        </div>
-    </div>
-    <div class="service-item anim-fade-up delay-4">
-        <div class="service-icon">👕</div>
-        <div class="service-info">
-            <h2>Merch & Apparel</h2>
-            <p>Screen-printed and embroidered custom apparel. T-shirts, hoodies, caps, and bags for your brand, event, or business.</p>
-            <ul>
-                <li>Techniques: Screen, DTG, Embroidery</li>
-                <li>Garments: Gildan, Bella+Canvas, Nike</li>
-                <li>Bulk & small batch OK</li>
-            </ul>
-        </div>
-    </div>
-    <div class="service-item anim-fade-up delay-5">
-        <div class="service-icon">🎨</div>
-        <div class="service-info">
-            <h2>Design Services</h2>
-            <p>Don't have a design? Our team of professional graphic designers can create stunning layouts, logos, and marketing materials tailored to your brand.</p>
-            <ul>
-                <li>Logo & Brand Identity</li>
-                <li>Print-ready artwork</li>
-                <li>Revisions until you're happy</li>
-            </ul>
-        </div>
-    </div>
+    {% endif %}
 </section>
 
 <footer>

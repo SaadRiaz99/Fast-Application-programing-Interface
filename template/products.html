@@ -15,73 +15,49 @@
         <a href="/">Home</a>
         <a href="/services">Services</a>
         <a href="/products">Products</a>
+        <a href="/search">Search</a>
         <a href="/quote">Get a Quote</a>
         <a href="/contact">Contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
     </div>
 </nav>
 
 <section class="page-header">
     <div class="header-content anim-fade-up">
-        <h1>Print Products</h1>
-        <p>Browse our range and get a quote instantly.</p>
+        <h1>{% if search_query %}Search: "{{ search_query }}"{% else %}Print Products{% endif %}</h1>
+        <p>{% if search_query %}{{ products|length }} result(s) found{% else %}Browse our range and get a quote instantly.{% endif %}</p>
+        <form action="/search" method="get" style="max-width: 500px; margin: 25px auto 0; display: flex; gap: 10px;">
+            <input type="text" name="q" placeholder="Search products..." value="{{ search_query or '' }}" style="flex: 1; padding: 12px 16px; border: 2px solid rgba(255,255,255,.15); border-radius: 10px; background: rgba(255,255,255,.08); color: white; font-size: .95rem; outline: none;">
+            <button type="submit" style="padding: 12px 24px; border: none; border-radius: 10px; background: #dc2626; color: white; font-weight: 600; cursor: pointer;">Search</button>
+        </form>
     </div>
 </section>
 
 <section class="products-grid">
-    <div class="product-card anim-scale delay-1">
-        <div class="product-image" style="background:linear-gradient(135deg,#fef2f2,#fecaca);">💳</div>
-        <div class="product-info">
-            <h2>Business Cards</h2>
-            <p class="desc">Premium 350gsm gloss/matte finish. Standard & custom sizes.</p>
-            <p class="price">From $25.00</p>
-            <a href="/product" class="product-link">View Details →</a>
+    {% if products %}
+        {% for prod in products %}
+        <div class="product-card anim-scale delay-{{ loop.index }}">
+            <div class="product-image" style="background: linear-gradient(135deg, #1e1e2f, #2d2d44);">
+                {% if "Card" in prod.name or "card" in prod.name or prod.id == 1 %}💳
+                {% elif "Flyer" in prod.name or "flyer" in prod.name or prod.id == 2 %}📄
+                {% elif "Brochure" in prod.name or "brochure" in prod.name or prod.id == 3 %}📘
+                {% elif "Banner" in prod.name or "banner" in prod.name or prod.id == 4 %}🏴
+                {% else %}📦
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h2>{{ prod.name }}</h2>
+                <p class="desc">{{ prod.description or 'Premium quality printing custom-tailored to suit your brand.' }}</p>
+                <p class="price">From {{ pkr(prod.price) }}</p>
+                <a href="/product/{{ prod.id }}" class="product-link">View Details →</a>
+            </div>
         </div>
-    </div>
-    <div class="product-card anim-scale delay-2">
-        <div class="product-image" style="background:linear-gradient(135deg,#fefce8,#fde68a);">📄</div>
-        <div class="product-info">
-            <h2>Flyers & Leaflets</h2>
-            <p class="desc">A5, A6, DL — full color double-sided on 150gsm stock.</p>
-            <p class="price">From $40.00</p>
-            <a href="/product" class="product-link">View Details →</a>
+        {% endfor %}
+    {% else %}
+        <div style="text-align: center; width: 100%; grid-column: 1 / -1; padding: 40px; color: #888;">
+            <p>No products currently available.</p>
         </div>
-    </div>
-    <div class="product-card anim-scale delay-3">
-        <div class="product-image" style="background:linear-gradient(135deg,#ecfdf5,#a7f3d0);">📘</div>
-        <div class="product-info">
-            <h2>Brochures</h2>
-            <p class="desc">Tri-fold, bi-fold, or saddle-stitched. Bespoke layouts.</p>
-            <p class="price">From $80.00</p>
-            <a href="/product" class="product-link">View Details →</a>
-        </div>
-    </div>
-    <div class="product-card anim-scale delay-4">
-        <div class="product-image" style="background:linear-gradient(135deg,#eff6ff,#93c5fd);">🏴</div>
-        <div class="product-info">
-            <h2>Banners</h2>
-            <p class="desc">Vinyl, mesh, retractable stands — indoor & outdoor.</p>
-            <p class="price">From $15/sq ft</p>
-            <a href="/product" class="product-link">View Details →</a>
-        </div>
-    </div>
-    <div class="product-card anim-scale delay-5">
-        <div class="product-image" style="background:linear-gradient(135deg,#f5f3ff,#c4b5fd);">🏷️</div>
-        <div class="product-info">
-            <h2>Stickers & Labels</h2>
-            <p class="desc">Die-cut, kiss-cut, roll labels — waterproof & durable.</p>
-            <p class="price">From $10.00</p>
-            <a href="/product" class="product-link">View Details →</a>
-        </div>
-    </div>
-    <div class="product-card anim-scale delay-6">
-        <div class="product-image" style="background:linear-gradient(135deg,#fdf2f8,#f9a8d4);">👕</div>
-        <div class="product-info">
-            <h2>Apparel</h2>
-            <p class="desc">Custom t-shirts, hoodies, caps — screen print or embroidery.</p>
-            <p class="price">From $15.00</p>
-            <a href="/product" class="product-link">View Details →</a>
-        </div>
-    </div>
+    {% endif %}
 </section>
 
 <footer>

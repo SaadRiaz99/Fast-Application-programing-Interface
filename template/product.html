@@ -14,18 +14,61 @@
     <div class="nav-links">
         <a href="/">Home</a>
         <a href="/products">Products</a>
+        <a href="/search">Search</a>
         <a href="/cart">Cart</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
     </div>
 </nav>
 
 <section class="product-detail">
+    {% if product %}
+    <div class="product-image anim-fade-left">
+        <div class="img-card">
+            {% if "Card" in product.name or "card" in product.name %}💳
+            {% elif "Flyer" in product.name or "flyer" in product.name %}📄
+            {% elif "Brochure" in product.name or "brochure" in product.name %}📘
+            {% elif "Banner" in product.name or "banner" in product.name %}🏴
+            {% else %}📦
+            {% endif %}
+        </div>
+    </div>
+    <div class="info anim-fade-right">
+        <span class="badge">Dynamic Item</span>
+        <h1>{{ product.name }}</h1>
+        <p class="price">{{ pkr(product.price) }} <span class="price-sub">/ starting price</span></p>
+        <p class="desc">{{ product.description or 'Premium quality printing, fully customizable to your project requirements.' }}</p>
+        <p style="margin-bottom: 15px; font-size: .9rem;">
+            {% if product.stock and product.stock > 0 %}
+            <span style="color: #10b981;">✓ In Stock ({{ product.stock }} units)</span>
+            {% elif product.stock == 0 %}
+            <span style="color: #ef4444;">✗ Out of Stock</span>
+            {% else %}
+            <span style="color: #f59e0b;">~ Available on order</span>
+            {% endif %}
+        </p>
+        <ul>
+            <li>Custom sizes and design checks</li>
+            <li>Premium quality paper stock & finish</li>
+            <li>Vibrant color accuracy (CMYK)</li>
+            <li>Fast processing and shipping options</li>
+        </ul>
+        <form action="/cart" method="post">
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <div class="qty-selector" style="margin-bottom: 20px;">
+                <label>Quantity:</label>
+                <input type="number" name="quantity" value="1" min="1" style="width: 70px; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: #18182c; color: white;">
+            </div>
+            <button type="submit" class="btn-ripple" style="width: 100%;">Add to Cart →</button>
+        </form>
+    </div>
+    {% else %}
     <div class="product-image anim-fade-left">
         <div class="img-card">💳</div>
     </div>
     <div class="info anim-fade-right">
         <span class="badge">Best Seller</span>
         <h1>Premium Business Cards</h1>
-        <p class="price">$25.00 <span class="price-sub">/ 500 cards</span></p>
+        <p class="price">{{ PKR }} 2,500 <span class="price-sub">/ 500 cards</span></p>
         <p class="desc">350gsm art board with gloss or matte lamination. Full color both sides. Choose from square, rounded corner, or standard sizes. 3–5 business day turnaround.</p>
         <ul>
             <li>350gsm premium stock</li>
@@ -33,17 +76,16 @@
             <li>Full color CMYK printing</li>
             <li>Free artwork check</li>
         </ul>
-        <div class="qty-selector">
-            <label>Quantity:</label>
-            <select>
-                <option>250 cards — $18.00</option>
-                <option selected>500 cards — $25.00</option>
-                <option>1000 cards — $40.00</option>
-                <option>2500 cards — $85.00</option>
-            </select>
-        </div>
-        <button class="btn-ripple">Add to Cart →</button>
+        <form action="/cart" method="post">
+            <input type="hidden" name="product_id" value="1">
+            <div class="qty-selector" style="margin-bottom: 20px;">
+                <label>Quantity:</label>
+                <input type="number" name="quantity" value="1" min="1" style="width: 70px; padding: 10px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.1); background: white; color: black;">
+            </div>
+            <button type="submit" class="btn-ripple" style="width: 100%;">Add to Cart →</button>
+        </form>
     </div>
+    {% endif %}
 </section>
 
 <footer>

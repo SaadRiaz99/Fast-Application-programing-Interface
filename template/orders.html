@@ -20,50 +20,31 @@
 <section class="orders-section">
     <h1 class="anim-fade-up">My Orders</h1>
 
-    <div class="order anim-fade-up delay-1">
-        <div class="order-header">
-            <span class="order-id">#PRT-2048</span>
-            <span>Jun 18, 2026</span>
-            <span class="status in-progress">In Production</span>
-        </div>
-        <div class="order-body">
-            <div class="order-info">
-                <h3>Business Cards — 500 qty</h3>
-                <p>350gsm Matte, Standard Size</p>
+    {% if orders %}
+        {% for order in orders %}
+        <a href="/order/{{ order.id }}" style="text-decoration: none; color: inherit; display: block;" class="anim-fade-up delay-{{ loop.index }}">
+        <div class="order">
+            <div class="order-header">
+                <span class="order-id">#PRT-{{ order.id }}</span>
+                <span>{{ order.created_at.strftime('%b %d, %Y') if order.created_at else 'Recent' }}</span>
+                <span class="status {{ order.status }}">{{ order.status|capitalize }}</span>
             </div>
-            <p class="order-total">$25.00</p>
-        </div>
-    </div>
-
-    <div class="order anim-fade-up delay-2">
-        <div class="order-header">
-            <span class="order-id">#PRT-2047</span>
-            <span>Jun 14, 2026</span>
-            <span class="status delivered">Delivered</span>
-        </div>
-        <div class="order-body">
-            <div class="order-info">
-                <h3>Flyers A5 — 1000 qty</h3>
-                <p>150gsm Gloss, Full Color</p>
+            <div class="order-body">
+                <div class="order-info">
+                    <h3>Order total</h3>
+                    <p>Shipping to: {{ order.shipping_address or 'Not specified' }}</p>
+                </div>
+                <p class="order-total">{{ pkr(order.total) }}</p>
             </div>
-            <p class="order-total">$40.00</p>
         </div>
-    </div>
-
-    <div class="order anim-fade-up delay-3">
-        <div class="order-header">
-            <span class="order-id">#PRT-2046</span>
-            <span>Jun 10, 2026</span>
-            <span class="status delivered">Delivered</span>
+        </a>
+        {% endfor %}
+    {% else %}
+        <div class="order anim-fade-up delay-1" style="text-align: center; padding: 45px; background: #18182c; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+            <p style="color: #888; font-size: 1.15rem; margin-bottom: 20px;">You haven't placed any orders yet.</p>
+            <a href="/products" style="color: #6366f1; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 5px;">Browse Products →</a>
         </div>
-        <div class="order-body">
-            <div class="order-info">
-                <h3>Vinyl Banner — 3x6 ft</h3>
-                <p>Matte Vinyl with Grommets</p>
-            </div>
-            <p class="order-total">$45.00</p>
-        </div>
-    </div>
+    {% endif %}
 </section>
 
 <footer>

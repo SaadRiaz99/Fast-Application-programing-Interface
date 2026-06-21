@@ -21,20 +21,25 @@
     <h1 class="anim-fade-up">Checkout</h1>
     <p class="checkout-sub anim-fade-up delay-1">Complete your order details below.</p>
 
-    <form class="checkout-form anim-fade-up delay-2">
+    <form class="checkout-form anim-fade-up delay-2" action="/checkout" method="post">
+        {% if success %}
+        <div style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; padding: 15px; border-radius: 10px; margin-bottom: 25px; font-weight: 500; font-size: 1rem;">
+            ✓ Order placed successfully! Your Order ID is <strong>#PRT-{{ order_id }}</strong>. You can track your production in the Orders section.
+        </div>
+        {% endif %}
         <div class="form-group">
             <h3>Contact Information</h3>
-            <input type="text" placeholder="Full Name">
-            <input type="email" placeholder="Email">
-            <input type="text" placeholder="Phone">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone">
         </div>
 
         <div class="form-group">
             <h3>Delivery Address</h3>
-            <input type="text" placeholder="Street Address">
+            <input type="text" name="address" placeholder="Street Address" required>
             <div class="form-row">
-                <input type="text" placeholder="City">
-                <input type="text" placeholder="Postal Code">
+                <input type="text" name="city" placeholder="City" required>
+                <input type="text" name="postal_code" placeholder="Postal Code" required>
             </div>
         </div>
 
@@ -45,12 +50,32 @@
 
         <div class="order-summary">
             <h3>Order Summary</h3>
-            <div class="summary-row"><span>Business Cards (500)</span><span>$25.00</span></div>
-            <div class="summary-row"><span>Flyers A5 (1000 x 2)</span><span>$80.00</span></div>
-            <div class="summary-row total"><span>Total</span><span>$105.00</span></div>
+            {% if cart_items %}
+                {% for item in cart_items %}
+                <div class="summary-row">
+                    <span>{{ item.product.name }} ({{ item.quantity }})</span>
+                    <span>{{ pkr((item.product.price|float) * item.quantity) }}</span>
+                </div>
+                {% endfor %}
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>{{ pkr(total) }}</span>
+                </div>
+            {% else %}
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>{{ PKR }} 0.00</span>
+                </div>
+            {% endif %}
         </div>
 
-        <button type="submit" class="btn-ripple">Place Order — $105.00</button>
+        <button type="submit" class="btn-ripple">
+            {% if total and total > 0 %}
+                Place Order — {{ pkr(total) }}
+            {% else %}
+                Place Order
+            {% endif %}
+        </button>
     </form>
 </section>
 

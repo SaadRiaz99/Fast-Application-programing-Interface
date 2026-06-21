@@ -20,49 +20,45 @@
 <section class="cart-section">
     <h1 class="anim-fade-up">Your Cart</h1>
 
-    <div class="cart-item anim-fade-left delay-1">
-        <div class="item-details">
-            <h3>Business Cards — 500 qty</h3>
-            <p>350gsm Matte, Standard Size</p>
+    {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="cart-item anim-fade-left delay-{{ loop.index }}">
+            <div class="item-details">
+                <h3>{{ item.product.name }}</h3>
+                <p>{{ item.product.description or 'Premium quality printing' }}</p>
+            </div>
+            <div class="qty">
+                <span>Qty: {{ item.quantity }}</span>
+            </div>
+            <p class="total">{{ pkr((item.product.price|float) * item.quantity) }}</p>
+            <form action="/cart/remove" method="post" style="margin: 0; display: inline;">
+                <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                <button type="submit" class="remove" style="background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.2rem; padding: 0 5px;">✕</button>
+            </form>
         </div>
-        <div class="qty">
-            <button>−</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-        <p class="total">$25.00</p>
-        <button class="remove">✕</button>
-    </div>
+        {% endfor %}
 
-    <div class="cart-item anim-fade-left delay-2">
-        <div class="item-details">
-            <h3>Flyers A5 — 1000 qty</h3>
-            <p>150gsm Gloss, Full Color</p>
+        <div class="summary anim-fade-up delay-{{ cart_items|length + 1 }}">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong>{{ pkr(subtotal) }}</strong>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <strong>Free</strong>
+            </div>
+            <div class="summary-row total-row">
+                <span>Total</span>
+                <strong>{{ pkr(total) }}</strong>
+            </div>
+            <a href="/checkout"><button class="btn-ripple">Proceed to Checkout →</button></a>
         </div>
-        <div class="qty">
-            <button>−</button>
-            <span>2</span>
-            <button>+</button>
+    {% else %}
+        <div style="text-align: center; padding: 50px 20px; background: #18182c; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-top: 20px;" class="anim-fade-up">
+            <p style="color: #888; font-size: 1.2rem; margin-bottom: 20px;">Your cart is currently empty.</p>
+            <a href="/products" style="color: #6366f1; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 5px;">Browse Products →</a>
         </div>
-        <p class="total">$80.00</p>
-        <button class="remove">✕</button>
-    </div>
-
-    <div class="summary anim-fade-up delay-3">
-        <div class="summary-row">
-            <span>Subtotal</span>
-            <strong>$105.00</strong>
-        </div>
-        <div class="summary-row">
-            <span>Shipping</span>
-            <strong>Free</strong>
-        </div>
-        <div class="summary-row total-row">
-            <span>Total</span>
-            <strong>$105.00</strong>
-        </div>
-        <a href="/checkout"><button class="btn-ripple">Proceed to Checkout →</button></a>
-    </div>
+    {% endif %}
 </section>
 
 <footer>
