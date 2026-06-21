@@ -6,3 +6,8 @@ __pycache__/
 .venv
 venv/
 env/
+*.db
+.pytest_cache/
+.coverage
+uvicorn_err.txt
+uvicorn_out.txt
