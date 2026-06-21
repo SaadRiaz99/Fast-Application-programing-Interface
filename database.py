@@ -1,3 +1,3 @@
-from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.orm import sessionmaker
 
-local_session = sessionmaker()
+# local_session = sessionmaker()
